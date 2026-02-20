@@ -1,0 +1,25 @@
+{
+  "trainees": {
+    "100": {
+      "id": 100,
+      "firstName": "Initial",
+      "lastName": "Trainee",
+      "username": "Initial.Trainee",
+      "password": "initPass1",
+      "active": true,
+      "address": "Yerevan"
+    }
+  },
+  "trainers": {
+    "200": {
+      "id": 200,
+      "firstName": "Initial",
+      "lastName": "Trainer",
+      "username": "Initial.Trainer",
+      "password": "initPass2",
+      "active": true,
+      "specialization": "Yoga"
+    }
+  },
+  "trainings": {}
+}
