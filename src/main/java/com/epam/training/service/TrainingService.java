@@ -1,44 +1,53 @@
 package com.epam.training.service;
 
 import com.epam.training.dao.TrainingDao;
+import com.epam.training.exception.UserNotFoundException;
+import com.epam.training.model.Trainer;
 import com.epam.training.model.Training;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.List;
 
 @Service
 public class TrainingService {
 
-    private static final Logger log = LoggerFactory.getLogger(TrainingService.class);
-    private static final AtomicLong idGenerator = new AtomicLong(1);
+    private final TrainingDao trainingDao;
 
-    private TrainingDao trainingDao;
-
-    @Autowired
-    public void setTrainingDao(TrainingDao trainingDao) {
+    public TrainingService(TrainingDao trainingDao) {
         this.trainingDao = trainingDao;
     }
 
     public Training create(Training training) {
-        training.setId(idGenerator.getAndIncrement());
-        trainingDao.save(training.getId(), training);
 
-        log.info("Training created with id {}", training.getId());
+        Long id = (long) (trainingDao.findAll().size() + 1);
+        training.setId(id);
+
+        trainingDao.save(id, training);
+
+        return training;
+    }
+    public void delete(Long id) {
+
+        Training trainee = trainingDao.getById(id);
+
+        if (trainee == null) {
+            throw new UserNotFoundException(id);
+        }
+
+        trainingDao.delete(id);
+    }
+    public Training getTrainingById(Long id) {
+
+        Training training = trainingDao.getById(id);
+
+        if (training == null) {
+            throw new UserNotFoundException(id);
+        }
 
         return training;
     }
 
-    public Training find(Long id) {
-        log.debug("Finding training with id {}", id);
-        return trainingDao.findById(id);
-    }
-    public java.util.Collection<Training> findAll() {
+    public List<Training> findAll() {
         return trainingDao.findAll();
     }
-
 }

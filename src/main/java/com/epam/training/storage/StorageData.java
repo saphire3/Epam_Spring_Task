@@ -4,13 +4,14 @@ import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.Training;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class InitData {
+public class StorageData {
 
-    private Map<Long, Trainee> trainees;
-    private Map<Long, Trainer> trainers;
-    private Map<Long, Training> trainings;
+    private Map<Long, Trainee> trainees = new HashMap<>();
+    private Map<Long, Trainer> trainers = new HashMap<>();
+    private Map<Long, Training> trainings = new HashMap<>();
 
     public Map<Long, Trainee> getTrainees() {
         return trainees;

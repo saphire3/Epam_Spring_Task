@@ -39,7 +39,7 @@ public class StorageInitializer implements InitializingBean {
             }
 
             ObjectMapper mapper = new ObjectMapper();
-            InitData data = mapper.readValue(is, InitData.class);
+            StorageData data = mapper.readValue(is, StorageData.class);
 
             if (data.getTrainees() != null)
                 storage.getNamespace("trainees").putAll(data.getTrainees());

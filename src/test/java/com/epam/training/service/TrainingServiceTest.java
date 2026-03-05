@@ -1,14 +1,15 @@
 package com.epam.training.service;
 
 import com.epam.training.dao.TrainingDao;
+import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.Training;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,20 +33,31 @@ class TrainingServiceTest {
         assertNotNull(result.getId());
         verify(trainingDao).save(anyLong(), any());
     }
+
     @Test
     void shouldFindTraining() {
 
         Training training = new Training();
         training.setId(1L);
 
-        when(trainingDao.findById(1L)).thenReturn(training);
+        when(trainingDao.getById(1L)).thenReturn(training);
 
-        assertNotNull(service.find(1L));
+        assertNotNull(service.getTrainingById(1L));
     }
+
+    @Test
+    void shouldThrowExceptionWhenTrainingNotFound() {
+
+        when(trainingDao.getById(1L)).thenReturn(null);
+
+        assertThrows(UserNotFoundException.class,
+                () -> service.getTrainingById(1L));
+    }
+
     @Test
     void shouldReturnAllTrainings() {
 
-        when(trainingDao.findAll()).thenReturn(java.util.List.of(new Training()));
+        when(trainingDao.findAll()).thenReturn(List.of(new Training()));
 
         assertEquals(1, service.findAll().size());
     }

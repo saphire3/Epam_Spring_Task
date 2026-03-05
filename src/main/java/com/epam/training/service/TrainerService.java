@@ -1,43 +1,28 @@
 package com.epam.training.service;
 
 import com.epam.training.dao.TrainerDao;
+import com.epam.training.exception.UserNotFoundException;
+import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
 import com.epam.training.util.PasswordGenerator;
 import com.epam.training.util.UsernameGenerator;
-import com.epam.training.exception.EntityNotFoundException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class TrainerService {
 
-    private static final Logger log = LoggerFactory.getLogger(TrainerService.class);
-    private static final AtomicLong idGenerator = new AtomicLong(1);
+    private final TrainerDao trainerDao;
+    private final UsernameGenerator usernameGenerator;
+    private final PasswordGenerator passwordGenerator;
 
-    private TrainerDao trainerDao;
-    private UsernameGenerator usernameGenerator;
-    private PasswordGenerator passwordGenerator;
-
-    @Autowired
-    public void setTrainerDao(TrainerDao trainerDao) {
+    public TrainerService(TrainerDao trainerDao,
+                          UsernameGenerator usernameGenerator,
+                          PasswordGenerator passwordGenerator) {
         this.trainerDao = trainerDao;
-    }
-
-    @Autowired
-    public void setUsernameGenerator(UsernameGenerator usernameGenerator) {
         this.usernameGenerator = usernameGenerator;
-    }
-
-    @Autowired
-    public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
         this.passwordGenerator = passwordGenerator;
     }
 
@@ -45,47 +30,31 @@ public class TrainerService {
 
         validate(trainer);
 
-        log.info("Creating trainer {} {}", trainer.getFirstName(), trainer.getLastName());
-
-        Set<String> existingUsernames = trainerDao.findAll()
-                .stream()
-                .map(Trainer::getUsername)
-                .collect(Collectors.toSet());
-
         String username = usernameGenerator.generate(
                 trainer.getFirstName(),
-                trainer.getLastName(),
-                existingUsernames
+                trainer.getLastName()
         );
 
         trainer.setUsername(username);
         trainer.setPassword(passwordGenerator.generate());
-        trainer.setId(idGenerator.getAndIncrement());
 
-        trainerDao.save(trainer.getId(), trainer);
+        Long id = (long) (trainerDao.findAll().size() + 1);
+        trainer.setId(id);
 
-        log.debug("Trainer created with username {}", username);
+        trainerDao.save(id, trainer);
 
         return trainer;
     }
 
-    public Trainer find(Long id) {
-        log.debug("Finding trainer by id {}", id);
-        return trainerDao.findById(id);
-    }
-
     public Trainer update(Long id, Trainer updated) {
 
-        validate(updated);
-
-        log.info("Updating trainer with id {}", id);
-
-        Trainer existing = trainerDao.findById(id);
+        Trainer existing = trainerDao.getById(id);
 
         if (existing == null) {
-            log.error("Trainer not found with id {}", id);
-            throw new EntityNotFoundException("Trainer not found with id " + id);
+            throw new UserNotFoundException(id);
         }
+
+        validate(updated);
 
         existing.setFirstName(updated.getFirstName());
         existing.setLastName(updated.getLastName());
@@ -96,17 +65,39 @@ public class TrainerService {
         return existing;
     }
 
+    public Trainer getTrainerById(Long id) {
+
+        Trainer trainer = trainerDao.getById(id);
+
+        if (trainer == null) {
+            throw new UserNotFoundException(id);
+        }
+
+        return trainer;
+    }
+    public void delete(Long id) {
+
+        Trainer trainee = trainerDao.getById(id);
+
+        if (trainee == null) {
+            throw new UserNotFoundException(id);
+        }
+
+        trainerDao.delete(id);
+    }
+
+    public List<Trainer> findAll() {
+        return trainerDao.findAll();
+    }
+
     private void validate(Trainer trainer) {
-        if (trainer.getFirstName() == null || trainer.getFirstName().isBlank()) {
+
+        if (StringUtils.isBlank(trainer.getFirstName())) {
             throw new IllegalArgumentException("First name cannot be null or blank");
         }
 
-        if (trainer.getLastName() == null || trainer.getLastName().isBlank()) {
+        if (StringUtils.isBlank(trainer.getLastName())) {
             throw new IllegalArgumentException("Last name cannot be null or blank");
         }
-    }
-
-    public java.util.Collection<Trainer> findAll() {
-        return trainerDao.findAll();
     }
 }

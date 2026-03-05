@@ -2,20 +2,19 @@ package com.epam.training.dao;
 
 import com.epam.training.model.Trainer;
 import com.epam.training.storage.InMemoryStorage;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Repository
 public class TrainerDao {
 
-    private InMemoryStorage storage;
+    private final InMemoryStorage storage;
 
-    @Autowired
-    public void setStorage(InMemoryStorage storage) {
+    public void delete(Long id) {
+        storage.getNamespace("trainers").remove(id);
+    }
+    public TrainerDao(InMemoryStorage storage) {
         this.storage = storage;
     }
 
@@ -23,15 +22,15 @@ public class TrainerDao {
         storage.getNamespace("trainers").put(id, trainer);
     }
 
-    public Trainer findById(Long id) {
+    public Trainer getById(Long id) {
         return (Trainer) storage.getNamespace("trainers").get(id);
     }
 
-    public Collection<Trainer> findAll() {
+    public List<Trainer> findAll() {
         return storage.getNamespace("trainers")
                 .values()
                 .stream()
                 .map(t -> (Trainer) t)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
