@@ -1,34 +1,28 @@
 package com.epam.training.service;
 
+import com.epam.training.dao.UserDao;
 import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.User;
-import com.epam.training.storage.UserStorage;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserService {
 
-    private final UserStorage userStorage;
+    private final UserDao userDao;
 
-    public UserService(UserStorage userStorage) {
-        this.userStorage = userStorage;
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
-    public User getUserById(Long id) {
-        return userStorage.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+    @Transactional(readOnly = true)
+    public User getByUsername(String username) {
+        return userDao.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + username));
     }
 
-    public List<User> getAllUsers() {
-        return userStorage.findAll();
-    }
-
-    public void deleteUser(Long id) {
-        if (userStorage.findById(id).isEmpty()) {
-            throw new UserNotFoundException(id);
-        }
-        userStorage.delete(id);
+    public User update(User user) {
+        return userDao.merge(user);
     }
 }

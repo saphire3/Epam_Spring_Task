@@ -1,20 +1,34 @@
 package com.epam.training.model;
 
-public abstract class User {
+import jakarta.persistence.*;
 
-    protected Long id;
-    protected String firstName;
-    protected String lastName;
-    protected String username;
-    protected String password;
-    protected boolean isActive = true;
+@Entity
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_users_username", columnNames = "username")
+})
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean active = true;
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -45,16 +59,16 @@ public abstract class User {
         return password;
     }
 
-    // DO NOT log this anywhere
+    // do not log this value
     public void setPassword(String password) {
         this.password = password;
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 }

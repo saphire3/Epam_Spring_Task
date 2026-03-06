@@ -1,37 +1,52 @@
 package com.epam.training.dao;
 
 import com.epam.training.model.Trainee;
-import com.epam.training.storage.InMemoryStorage;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class TraineeDao {
 
-    private final InMemoryStorage storage;
+    private final SessionFactory sessionFactory;
 
-    public TraineeDao(InMemoryStorage storage) {
-        this.storage = storage;
+    public TraineeDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
-    public void save(Long id, Trainee trainee) {
-        storage.getNamespace("trainees").put(id, trainee);
+    public void save(Trainee trainee) {
+        sessionFactory.getCurrentSession().persist(trainee);
     }
 
-    public Trainee getById(Long id) {
-        return (Trainee) storage.getNamespace("trainees").get(id);
+    public Trainee update(Trainee trainee) {
+        return (Trainee) sessionFactory.getCurrentSession().merge(trainee);
     }
 
-    public void delete(Long id) {
-        storage.getNamespace("trainees").remove(id);
+    public Optional<Trainee> findById(Long id) {
+        return Optional.ofNullable(sessionFactory.getCurrentSession().get(Trainee.class, id));
+    }
+
+    public Optional<Trainee> findByUsername(String username) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("""
+                        select t
+                        from Trainee t
+                        join t.user u
+                        where u.username = :username
+                        """, Trainee.class)
+                .setParameter("username", username)
+                .uniqueResultOptional();
     }
 
     public List<Trainee> findAll() {
-        return storage.getNamespace("trainees")
-                .values()
-                .stream()
-                .map(t -> (Trainee) t)
-                .toList();
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Trainee", Trainee.class)
+                .getResultList();
+    }
+
+    public void delete(Trainee trainee) {
+        sessionFactory.getCurrentSession().remove(trainee);
     }
 }
