@@ -10,6 +10,7 @@ import com.epam.training.model.User;
 import com.epam.training.service.TraineeService;
 import com.epam.training.service.TrainerService;
 import com.epam.training.service.TrainingService;
+import com.epam.training.service.TrainingTypeService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.time.LocalDate;
@@ -18,212 +19,427 @@ import java.util.List;
 public class Application {
 
     public static void main(String[] args) {
-        try (AnnotationConfigApplicationContext context =
-                     new AnnotationConfigApplicationContext(AppConfig.class)) {
+        System.out.println("=================================");
+        System.out.println("      GYM CRM SYSTEM STARTED     ");
+        System.out.println("=================================");
 
-            TraineeService traineeService = context.getBean(TraineeService.class);
-            TrainerService trainerService = context.getBean(TrainerService.class);
-            TrainingService trainingService = context.getBean(TrainingService.class);
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(AppConfig.class);
 
-            System.out.println("=================================");
-            System.out.println("      GYM CRM SYSTEM STARTED     ");
-            System.out.println("=================================");
+        TraineeService traineeService = context.getBean(TraineeService.class);
+        TrainerService trainerService = context.getBean(TrainerService.class);
+        TrainingService trainingService = context.getBean(TrainingService.class);
+        TrainingTypeService trainingTypeService = context.getBean(TrainingTypeService.class);
 
-            // Create trainee
-            User traineeUser = new User();
-            traineeUser.setFirstName("John");
-            traineeUser.setLastName("Smith");
+        trainingTypeService.initializeDefaultTrainingTypes();
 
-            Trainee trainee = new Trainee();
-            trainee.setUser(traineeUser);
-            trainee.setAddress("Yerevan");
-            trainee.setDateOfBirth(LocalDate.of(2000, 1, 1));
+        // ---------------------------------------------------------
+        // CREATE 4 TRAINEES WITH THE SAME NAME
+        // ---------------------------------------------------------
+        System.out.println("\n--- Creating 4 Trainees With The Same Name ---");
 
-            trainee = traineeService.create(trainee);
+        Trainee trainee1 = traineeService.create(
+                buildTrainee("John", "Smith", LocalDate.of(2000, 1, 10), "Yerevan")
+        );
+        Trainee trainee2 = traineeService.create(
+                buildTrainee("John", "Smith", LocalDate.of(2001, 2, 11), "Gyumri")
+        );
+        Trainee trainee3 = traineeService.create(
+                buildTrainee("John", "Smith", LocalDate.of(2002, 3, 12), "Vanadzor")
+        );
+        Trainee trainee4 = traineeService.create(
+                buildTrainee("John", "Smith", LocalDate.of(2003, 4, 13), "Dilijan")
+        );
 
-            System.out.println("\n--- Created Trainee ---");
-            System.out.println("Username: " + trainee.getUser().getUsername());
-            System.out.println("Password: " + trainee.getUser().getPassword());
+        printTraineeCard(trainee1);
+        printTraineeCard(trainee2);
+        printTraineeCard(trainee3);
+        printTraineeCard(trainee4);
 
-            // Create trainer
-            User trainerUser = new User();
-            trainerUser.setFirstName("Anna");
-            trainerUser.setLastName("Brown");
+        String mainTraineeUsername = trainee1.getUser().getUsername();
+        String mainTraineePassword = trainee1.getUser().getPassword();
 
-            Trainer trainer = new Trainer();
-            trainer.setUser(trainerUser);
+        // ---------------------------------------------------------
+        // DELETE ONE DUPLICATE IN THE MIDDLE
+        // ---------------------------------------------------------
+        System.out.println("\n--- Deleting One Duplicate Trainee In The Middle ---");
 
-            trainer = trainerService.create(trainer, "FITNESS");
+        traineeService.deleteByUsername(
+                trainee3.getUser().getUsername(),
+                trainee3.getUser().getPassword()
+        );
 
-            System.out.println("\n--- Created Trainer ---");
-            System.out.println("Username: " + trainer.getUser().getUsername());
-            System.out.println("Password: " + trainer.getUser().getPassword());
+        System.out.println("Deleted trainee successfully:");
+        System.out.println("Name: " + fullName(trainee3));
+        System.out.println("Username: " + trainee3.getUser().getUsername());
 
-            // Get profiles by username + password
-            Trainee loadedTrainee = traineeService.findByUsername(
-                    trainee.getUser().getUsername(),
-                    trainee.getUser().getPassword()
-            );
+        // ---------------------------------------------------------
+        // ADD ANOTHER DUPLICATE AFTER DELETION
+        // ---------------------------------------------------------
+        System.out.println("\n--- Adding Another Duplicate After Deletion ---");
 
-            Trainer loadedTrainer = trainerService.findByUsername(
-                    trainer.getUser().getUsername(),
-                    trainer.getUser().getPassword()
-            );
+        Trainee trainee5 = traineeService.create(
+                buildTrainee("John", "Smith", LocalDate.of(2004, 5, 14), "Abovyan")
+        );
 
-            System.out.println("\n--- Loaded Profiles ---");
-            System.out.println("Trainee: " + loadedTrainee.getUser().getFirstName() + " " + loadedTrainee.getUser().getLastName());
-            System.out.println("Trainer: " + loadedTrainer.getUser().getFirstName() + " " + loadedTrainer.getUser().getLastName());
+        printTraineeCard(trainee5);
 
-            // Update trainee
-            Trainee traineeUpdate = new Trainee();
-            User updatedTraineeUser = new User();
-            updatedTraineeUser.setFirstName("John");
-            updatedTraineeUser.setLastName("Johnson");
-            traineeUpdate.setUser(updatedTraineeUser);
-            traineeUpdate.setAddress("Gyumri");
-            traineeUpdate.setDateOfBirth(LocalDate.of(2000, 1, 1));
+        // ---------------------------------------------------------
+        // CREATE TRAINERS WITH DUPLICATE NAMES
+        // ---------------------------------------------------------
+        System.out.println("\n--- Creating Trainers With Duplicate Names ---");
 
-            trainee = traineeService.update(
-                    trainee.getUser().getUsername(),
-                    trainee.getUser().getPassword(),
-                    traineeUpdate
-            );
+        Trainer trainer1 = trainerService.create(
+                buildTrainer("Anna", "Brown"),
+                "Fitness"
+        );
 
-            System.out.println("\n--- Updated Trainee ---");
-            System.out.println("New last name: " + trainee.getUser().getLastName());
-            System.out.println("New address: " + trainee.getAddress());
+        Trainer trainer2 = trainerService.create(
+                buildTrainer("Anna", "Brown"),
+                "Yoga"
+        );
 
-            // Update trainer
-            Trainer trainerUpdate = new Trainer();
-            User updatedTrainerUser = new User();
-            updatedTrainerUser.setFirstName("Anna");
-            updatedTrainerUser.setLastName("Taylor");
-            trainerUpdate.setUser(updatedTrainerUser);
+        printTrainerCard(trainer1);
+        printTrainerCard(trainer2);
 
-            trainer = trainerService.update(
-                    trainer.getUser().getUsername(),
-                    trainer.getUser().getPassword(),
-                    trainerUpdate,
-                    "YOGA"
-            );
+        String trainer1Username = trainer1.getUser().getUsername();
+        String trainer1Password = trainer1.getUser().getPassword();
 
-            System.out.println("\n--- Updated Trainer ---");
-            System.out.println("New last name: " + trainer.getUser().getLastName());
-            System.out.println("New specialization: " + trainer.getSpecialization().getTrainingTypeName());
+        String trainer2Username = trainer2.getUser().getUsername();
+        String trainer2Password = trainer2.getUser().getPassword();
 
-            // Change passwords
-            String traineeOldPassword = trainee.getUser().getPassword();
-            traineeService.changePassword(
-                    trainee.getUser().getUsername(),
-                    traineeOldPassword,
-                    "NewPass123"
-            );
-            trainee.getUser().setPassword("NewPass123");
+        // ---------------------------------------------------------
+        // LOAD PROFILES BY USERNAME + PASSWORD
+        // ---------------------------------------------------------
+        System.out.println("\n--- Loading Profiles By Username And Password ---");
 
-            String trainerOldPassword = trainer.getUser().getPassword();
-            trainerService.changePassword(
-                    trainer.getUser().getUsername(),
-                    trainerOldPassword,
-                    "TrainerPass123"
-            );
-            trainer.getUser().setPassword("TrainerPass123");
+        Trainee loadedTrainee = traineeService.findByUsername(mainTraineeUsername, mainTraineePassword);
+        Trainer loadedTrainer = trainerService.findByUsername(trainer1Username, trainer1Password);
 
-            System.out.println("\n--- Passwords Changed ---");
-            System.out.println("Trainee new password: " + trainee.getUser().getPassword());
-            System.out.println("Trainer new password: " + trainer.getUser().getPassword());
+        System.out.println("Loaded trainee successfully:");
+        System.out.println("Name: " + fullName(loadedTrainee));
+        System.out.println("Username: " + loadedTrainee.getUser().getUsername());
 
-            // Deactivate / activate
-            traineeService.deactivate(trainee.getUser().getUsername(), trainee.getUser().getPassword());
-            System.out.println("\nTrainee deactivated");
-            traineeService.activate(trainee.getUser().getUsername(), trainee.getUser().getPassword());
-            System.out.println("Trainee activated");
+        System.out.println();
+        System.out.println("Loaded trainer successfully:");
+        System.out.println("Name: " + fullName(loadedTrainer));
+        System.out.println("Username: " + loadedTrainer.getUser().getUsername());
+        System.out.println("Specialization: " + loadedTrainer.getSpecialization().getTrainingTypeName());
 
-            trainerService.deactivate(trainer.getUser().getUsername(), trainer.getUser().getPassword());
-            System.out.println("Trainer deactivated");
-            trainerService.activate(trainer.getUser().getUsername(), trainer.getUser().getPassword());
-            System.out.println("Trainer activated");
+        // ---------------------------------------------------------
+        // UPDATE TRAINEE
+        // ---------------------------------------------------------
+        System.out.println("\n--- Updating Trainee ---");
 
-            // Create second trainer for trainer-list demo
-            User secondTrainerUser = new User();
-            secondTrainerUser.setFirstName("Mike");
-            secondTrainerUser.setLastName("Stone");
+        Trainee traineeUpdate = buildTrainee(
+                "John",
+                "Johnson",
+                LocalDate.of(2000, 1, 10),
+                "Updated Address"
+        );
 
-            Trainer secondTrainer = new Trainer();
-            secondTrainer.setUser(secondTrainerUser);
-            secondTrainer = trainerService.create(secondTrainer, "CARDIO");
+        Trainee updatedTrainee = traineeService.update(
+                mainTraineeUsername,
+                mainTraineePassword,
+                traineeUpdate
+        );
 
-            System.out.println("\n--- Created Second Trainer ---");
-            System.out.println("Username: " + secondTrainer.getUser().getUsername());
+        System.out.println("Trainee updated successfully:");
+        System.out.println("Username: " + updatedTrainee.getUser().getUsername());
+        System.out.println("New full name: " + fullName(updatedTrainee));
+        System.out.println("New address: " + updatedTrainee.getAddress());
 
-            // Unassigned trainers before assignment
-            List<Trainer> unassignedBefore = traineeService.getUnassignedTrainers(
-                    trainee.getUser().getUsername(),
-                    trainee.getUser().getPassword()
-            );
-            System.out.println("\nUnassigned trainers before assignment: " + unassignedBefore.size());
+        // ---------------------------------------------------------
+        // UPDATE TRAINER
+        // ---------------------------------------------------------
+        System.out.println("\n--- Updating Trainer ---");
 
-            // Update trainee trainer list
-            traineeService.updateTrainerList(
-                    trainee.getUser().getUsername(),
-                    trainee.getUser().getPassword(),
-                    List.of(
-                            trainer.getUser().getUsername(),
-                            secondTrainer.getUser().getUsername()
-                    )
-            );
-            System.out.println("Updated trainee trainer list");
+        Trainer trainerUpdate = buildTrainer("Anna", "Taylor");
 
-            // Create training
-            Training training = new Training();
-            training.setTrainingName("Morning Cardio");
-            training.setTrainingDate(LocalDate.now());
-            training.setDuration(60);
+        Trainer updatedTrainer = trainerService.update(
+                trainer1Username,
+                trainer1Password,
+                trainerUpdate,
+                "Cardio"
+        );
 
-            trainingService.create(
-                    trainee.getUser().getUsername(),
-                    trainee.getUser().getPassword(),
-                    trainer.getUser().getUsername(),
-                    "CARDIO",
-                    training
-            );
+        System.out.println("Trainer updated successfully:");
+        System.out.println("Username: " + updatedTrainer.getUser().getUsername());
+        System.out.println("New full name: " + fullName(updatedTrainer));
+        System.out.println("New specialization: " + updatedTrainer.getSpecialization().getTrainingTypeName());
 
-            System.out.println("\n--- Training Created ---");
-            System.out.println("Training: " + training.getTrainingName());
+        // ---------------------------------------------------------
+        // CHANGE PASSWORDS
+        // ---------------------------------------------------------
+        System.out.println("\n--- Changing Passwords ---");
 
-            // Query trainee trainings
-            TraineeTrainingFilter traineeFilter = new TraineeTrainingFilter();
-            traineeFilter.setTrainingType("CARDIO");
+        String newTraineePassword = "newTraineePassword123";
+        String newTrainerPassword = "newTrainerPassword123";
 
-            List<Training> traineeTrainings = trainingService.getTraineeTrainings(
-                    trainee.getUser().getUsername(),
-                    trainee.getUser().getPassword(),
-                    traineeFilter
-            );
+        traineeService.changePassword(
+                mainTraineeUsername,
+                mainTraineePassword,
+                newTraineePassword
+        );
+        mainTraineePassword = newTraineePassword;
 
-            System.out.println("\nTrainee trainings found: " + traineeTrainings.size());
+        trainerService.changePassword(
+                trainer1Username,
+                trainer1Password,
+                newTrainerPassword
+        );
+        trainer1Password = newTrainerPassword;
 
-            // Query trainer trainings
-            TrainerTrainingFilter trainerFilter = new TrainerTrainingFilter();
-            trainerFilter.setTraineeName("John");
+        System.out.println("Trainee password changed for username: " + mainTraineeUsername);
+        System.out.println("Trainer password changed for username: " + trainer1Username);
 
-            List<Training> trainerTrainings = trainingService.getTrainerTrainings(
-                    trainer.getUser().getUsername(),
-                    trainer.getUser().getPassword(),
-                    trainerFilter
-            );
+        // ---------------------------------------------------------
+        // DEACTIVATE / ACTIVATE
+        // ---------------------------------------------------------
+        System.out.println("\n--- Deactivating And Activating Trainee And Trainer ---");
 
-            System.out.println("Trainer trainings found: " + trainerTrainings.size());
+        traineeService.deactivate(mainTraineeUsername, mainTraineePassword);
+        System.out.println("Trainee deactivated: " + mainTraineeUsername);
 
-            // Delete trainee at the very end
-            traineeService.deleteByUsername(
-                    trainee.getUser().getUsername(),
-                    trainee.getUser().getPassword()
-            );
-            System.out.println("\nTrainee deleted successfully");
+        traineeService.activate(mainTraineeUsername, mainTraineePassword);
+        System.out.println("Trainee activated: " + mainTraineeUsername);
 
-            System.out.println("\n=================================");
-            System.out.println("      GYM CRM SYSTEM FINISHED    ");
-            System.out.println("=================================");
+        trainerService.deactivate(trainer1Username, trainer1Password);
+        System.out.println("Trainer deactivated: " + trainer1Username);
+
+        trainerService.activate(trainer1Username, trainer1Password);
+        System.out.println("Trainer activated: " + trainer1Username);
+
+        // ---------------------------------------------------------
+        // GET UNASSIGNED TRAINERS
+        // ---------------------------------------------------------
+        System.out.println("\n--- Getting Unassigned Trainers Before Assignment ---");
+
+        List<Trainer> unassigned = traineeService.getUnassignedTrainers(
+                mainTraineeUsername,
+                mainTraineePassword
+        );
+
+        System.out.println("Unassigned trainers count: " + unassigned.size());
+        for (Trainer trainer : unassigned) {
+            System.out.println("- " + fullName(trainer)
+                    + " | username=" + trainer.getUser().getUsername()
+                    + " | specialization=" + trainer.getSpecialization().getTrainingTypeName());
         }
+
+        // ---------------------------------------------------------
+        // ASSIGN TRAINERS
+        // ---------------------------------------------------------
+        System.out.println("\n--- Assigning Trainers To Trainee ---");
+
+        List<String> assignedTrainerUsernames = List.of(trainer1Username, trainer2Username);
+
+        traineeService.updateTrainerList(
+                mainTraineeUsername,
+                mainTraineePassword,
+                assignedTrainerUsernames
+        );
+
+        System.out.println("Assigned trainers successfully to: " + mainTraineeUsername);
+        for (String username : assignedTrainerUsernames) {
+            System.out.println("- " + username);
+        }
+
+        // ---------------------------------------------------------
+        // ADD DUPLICATE TRAININGS
+        // ---------------------------------------------------------
+        System.out.println("\n--- Creating Duplicate Trainings ---");
+
+        Training training1 = trainingService.create(
+                mainTraineeUsername,
+                mainTraineePassword,
+                trainer1Username,
+                "Cardio",
+                buildTraining("Morning Cardio", LocalDate.now(), 60)
+        );
+
+        Training training2 = trainingService.create(
+                mainTraineeUsername,
+                mainTraineePassword,
+                trainer1Username,
+                "Cardio",
+                buildTraining("Morning Cardio", LocalDate.now(), 60)
+        );
+
+        Training training3 = trainingService.create(
+                mainTraineeUsername,
+                mainTraineePassword,
+                trainer2Username,
+                "Yoga",
+                buildTraining("Morning Cardio", LocalDate.now().plusDays(1), 45)
+        );
+
+        System.out.println("Created trainings successfully:");
+        printTrainingCard(training1);
+        printTrainingCard(training2);
+        printTrainingCard(training3);
+
+        // ---------------------------------------------------------
+        // SHOW ALL TRAININGS BEFORE CASCADE DELETE
+        // ---------------------------------------------------------
+        System.out.println("\n--- Showing All Trainings Before Cascade Delete ---");
+
+        List<Training> allBeforeDelete = trainingService.findAll();
+        System.out.println("Total trainings before delete: " + allBeforeDelete.size());
+        for (Training training : allBeforeDelete) {
+            printTrainingLine(training);
+        }
+
+        // ---------------------------------------------------------
+        // FILTER TRAINEE TRAININGS
+        // ---------------------------------------------------------
+        System.out.println("\n--- Filtering Trainee Trainings ---");
+
+        TraineeTrainingFilter traineeFilter = new TraineeTrainingFilter();
+        traineeFilter.setTrainingType("Cardio");
+
+        List<Training> filteredTraineeTrainings = trainingService.getTraineeTrainings(
+                mainTraineeUsername,
+                mainTraineePassword,
+                traineeFilter
+        );
+
+        System.out.println("Filtered trainee trainings count: " + filteredTraineeTrainings.size());
+        for (Training training : filteredTraineeTrainings) {
+            printTrainingLine(training);
+        }
+
+        // ---------------------------------------------------------
+        // FILTER TRAINER TRAININGS
+        // ---------------------------------------------------------
+        System.out.println("\n--- Filtering Trainer Trainings ---");
+
+        TrainerTrainingFilter trainerFilter = new TrainerTrainingFilter();
+        trainerFilter.setTraineeName("John Johnson");
+
+        List<Training> filteredTrainerTrainings = trainingService.getTrainerTrainings(
+                trainer1Username,
+                trainer1Password,
+                trainerFilter
+        );
+
+        System.out.println("Filtered trainer trainings count: " + filteredTrainerTrainings.size());
+        for (Training training : filteredTrainerTrainings) {
+            printTrainingLine(training);
+        }
+
+        // ---------------------------------------------------------
+        // DELETE TRAINEE WITH CASCADE DELETE
+        // ---------------------------------------------------------
+        System.out.println("\n--- Deleting Trainee With Cascade Delete ---");
+
+        int beforeDeleteCount = trainingService.findAll().size();
+
+        traineeService.deleteByUsername(mainTraineeUsername, mainTraineePassword);
+
+        int afterDeleteCount = trainingService.findAll().size();
+
+        System.out.println("Deleted trainee username: " + mainTraineeUsername);
+        System.out.println("Trainings before deleting trainee: " + beforeDeleteCount);
+        System.out.println("Trainings after deleting trainee: " + afterDeleteCount);
+        System.out.println("Cascade delete successful: " + (afterDeleteCount == 0));
+
+        // ---------------------------------------------------------
+        // SHOW ALL TRAININGS AFTER CASCADE DELETE
+        // ---------------------------------------------------------
+        System.out.println("\n--- Showing All Trainings After Cascade Delete ---");
+
+        List<Training> allAfterDelete = trainingService.findAll();
+        if (allAfterDelete.isEmpty()) {
+            System.out.println("No trainings found.");
+        } else {
+            for (Training training : allAfterDelete) {
+                printTrainingLine(training);
+            }
+        }
+
+        System.out.println("\n=================================");
+        System.out.println("      GYM CRM SYSTEM FINISHED    ");
+        System.out.println("=================================");
+
+        context.close();
+    }
+
+    private static Trainee buildTrainee(String firstName, String lastName, LocalDate dob, String address) {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+
+        Trainee trainee = new Trainee();
+        trainee.setUser(user);
+        trainee.setDateOfBirth(dob);
+        trainee.setAddress(address);
+        return trainee;
+    }
+
+    private static Trainer buildTrainer(String firstName, String lastName) {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+
+        Trainer trainer = new Trainer();
+        trainer.setUser(user);
+        return trainer;
+    }
+
+    private static Training buildTraining(String name, LocalDate date, int duration) {
+        Training training = new Training();
+        training.setTrainingName(name);
+        training.setTrainingDate(date);
+        training.setDuration(duration);
+        return training;
+    }
+
+    private static void printTraineeCard(Trainee trainee) {
+        System.out.println();
+        System.out.println("Created Trainee: " + fullName(trainee));
+        System.out.println("Username: " + trainee.getUser().getUsername());
+        System.out.println("Password: " + trainee.getUser().getPassword());
+        System.out.println("Address: " + trainee.getAddress());
+        System.out.println("Date of birth: " + trainee.getDateOfBirth());
+    }
+
+    private static void printTrainerCard(Trainer trainer) {
+        System.out.println();
+        System.out.println("Created Trainer: " + fullName(trainer));
+        System.out.println("Username: " + trainer.getUser().getUsername());
+        System.out.println("Password: " + trainer.getUser().getPassword());
+        System.out.println("Specialization: " + trainer.getSpecialization().getTrainingTypeName());
+    }
+
+    private static void printTrainingCard(Training training) {
+        System.out.println();
+        System.out.println("Training ID: " + training.getId());
+        System.out.println("Name: " + training.getTrainingName());
+        System.out.println("Date: " + training.getTrainingDate());
+        System.out.println("Duration: " + training.getDuration() + " minutes");
+        System.out.println("Trainee: " + fullName(training.getTrainee())
+                + " (" + training.getTrainee().getUser().getUsername() + ")");
+        System.out.println("Trainer: " + fullName(training.getTrainer())
+                + " (" + training.getTrainer().getUser().getUsername() + ")");
+        System.out.println("Type: " + training.getTrainingType().getTrainingTypeName());
+    }
+
+    private static void printTrainingLine(Training training) {
+        System.out.println("- Training #" + training.getId()
+                + " | " + training.getTrainingName()
+                + " | " + training.getTrainingDate()
+                + " | " + training.getDuration() + " min"
+                + " | trainee=" + training.getTrainee().getUser().getUsername()
+                + " | trainer=" + training.getTrainer().getUser().getUsername()
+                + " | type=" + training.getTrainingType().getTrainingTypeName());
+    }
+
+    private static String fullName(Trainee trainee) {
+        return trainee.getUser().getFirstName() + " " + trainee.getUser().getLastName();
+    }
+
+    private static String fullName(Trainer trainer) {
+        return trainer.getUser().getFirstName() + " " + trainer.getUser().getLastName();
     }
 }

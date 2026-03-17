@@ -23,7 +23,7 @@ public class HibernateConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:mem:gymcrm;DB_CLOSE_DELAY=-1;MODE=PostgreSQL");
+        dataSource.setUrl("jdbc:h2:file:./data/gymdb;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
         return dataSource;
@@ -42,8 +42,8 @@ public class HibernateConfig {
         );
 
         Properties props = new Properties();
-        props.put("hibernate.show_sql", "true");
-        props.put("hibernate.format_sql", "true");
+        props.put("hibernate.show_sql", "false");
+        props.put("hibernate.format_sql", "false");
         props.put("hibernate.hbm2ddl.auto", "update");
         props.put("hibernate.current_session_context_class", "org.springframework.orm.hibernate5.SpringSessionContext");
 
