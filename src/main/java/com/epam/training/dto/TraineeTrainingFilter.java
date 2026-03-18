@@ -9,6 +9,16 @@ public class TraineeTrainingFilter {
     private String trainerName;
     private String trainingType;
 
+    public TraineeTrainingFilter() {
+    }
+
+    public TraineeTrainingFilter(LocalDate fromDate, LocalDate toDate, String trainerName, String trainingType) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.trainerName = trainerName;
+        this.trainingType = trainingType;
+    }
+
     public LocalDate getFromDate() {
         return fromDate;
     }

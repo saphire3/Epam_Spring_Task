@@ -211,17 +211,17 @@ public class Application {
         System.out.println("Trainer activated: " + trainer1Username);
 
         // ---------------------------------------------------------
-        // GET UNASSIGNED TRAINERS
+        // GET UNASSIGNED TRAINERS BEFORE ASSIGNMENT
         // ---------------------------------------------------------
         System.out.println("\n--- Getting Unassigned Trainers Before Assignment ---");
 
-        List<Trainer> unassigned = traineeService.getUnassignedTrainers(
+        List<Trainer> unassignedBefore = traineeService.getUnassignedTrainers(
                 mainTraineeUsername,
                 mainTraineePassword
         );
 
-        System.out.println("Unassigned trainers count: " + unassigned.size());
-        for (Trainer trainer : unassigned) {
+        System.out.println("Unassigned trainers count before assignment: " + unassignedBefore.size());
+        for (Trainer trainer : unassignedBefore) {
             System.out.println("- " + fullName(trainer)
                     + " | username=" + trainer.getUser().getUsername()
                     + " | specialization=" + trainer.getSpecialization().getTrainingTypeName());
@@ -244,6 +244,35 @@ public class Application {
         for (String username : assignedTrainerUsernames) {
             System.out.println("- " + username);
         }
+
+        // ---------------------------------------------------------
+        // GET UNASSIGNED TRAINERS AFTER ASSIGNMENT
+        // ---------------------------------------------------------
+        System.out.println("\n--- Getting Unassigned Trainers After Assignment ---");
+
+        List<Trainer> unassignedAfter = traineeService.getUnassignedTrainers(
+                mainTraineeUsername,
+                mainTraineePassword
+        );
+
+        System.out.println("Unassigned trainers count after assignment: " + unassignedAfter.size());
+        if (unassignedAfter.isEmpty()) {
+            System.out.println("No unassigned trainers left for this trainee.");
+        } else {
+            for (Trainer trainer : unassignedAfter) {
+                System.out.println("- " + fullName(trainer)
+                        + " | username=" + trainer.getUser().getUsername()
+                        + " | specialization=" + trainer.getSpecialization().getTrainingTypeName());
+            }
+        }
+
+        boolean trainer1StillUnassigned = containsTrainer(unassignedAfter, trainer1Username);
+        boolean trainer2StillUnassigned = containsTrainer(unassignedAfter, trainer2Username);
+
+        System.out.println("Assignment check:");
+        System.out.println("- " + trainer1Username + " removed from unassigned list: " + !trainer1StillUnassigned);
+        System.out.println("- " + trainer2Username + " removed from unassigned list: " + !trainer2StillUnassigned);
+        System.out.println("Assigned trainer update works: " + (!trainer1StillUnassigned && !trainer2StillUnassigned));
 
         // ---------------------------------------------------------
         // ADD DUPLICATE TRAININGS
@@ -433,6 +462,17 @@ public class Application {
                 + " | trainee=" + training.getTrainee().getUser().getUsername()
                 + " | trainer=" + training.getTrainer().getUser().getUsername()
                 + " | type=" + training.getTrainingType().getTrainingTypeName());
+    }
+
+    private static boolean containsTrainer(List<Trainer> trainers, String username) {
+        for (Trainer trainer : trainers) {
+            if (trainer.getUser() != null
+                    && trainer.getUser().getUsername() != null
+                    && trainer.getUser().getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String fullName(Trainee trainee) {

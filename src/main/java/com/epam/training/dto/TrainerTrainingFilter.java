@@ -8,6 +8,15 @@ public class TrainerTrainingFilter {
     private LocalDate toDate;
     private String traineeName;
 
+    public TrainerTrainingFilter() {
+    }
+
+    public TrainerTrainingFilter(LocalDate fromDate, LocalDate toDate, String traineeName) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.traineeName = traineeName;
+    }
+
     public LocalDate getFromDate() {
         return fromDate;
     }

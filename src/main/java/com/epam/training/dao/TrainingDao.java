@@ -36,6 +36,10 @@ public class TrainingDao {
     public List<Training> findTraineeTrainings(String username, TraineeTrainingFilter filter) {
         Session session = sessionFactory.getCurrentSession();
 
+        if (filter == null) {
+            filter = new TraineeTrainingFilter();
+        }
+
         StringBuilder hql = new StringBuilder("""
                 select trn
                 from Training trn
@@ -47,8 +51,12 @@ public class TrainingDao {
                 where tu.username = :username
                 """);
 
-        if (filter.getFromDate() != null) hql.append(" and trn.trainingDate >= :fromDate");
-        if (filter.getToDate() != null) hql.append(" and trn.trainingDate <= :toDate");
+        if (filter.getFromDate() != null) {
+            hql.append(" and trn.trainingDate >= :fromDate");
+        }
+        if (filter.getToDate() != null) {
+            hql.append(" and trn.trainingDate <= :toDate");
+        }
         if (filter.getTrainerName() != null && !filter.getTrainerName().isBlank()) {
             hql.append(" and lower(concat(trainerUser.firstName, ' ', trainerUser.lastName)) like :trainerName");
         }
@@ -59,8 +67,12 @@ public class TrainingDao {
         var query = session.createQuery(hql.toString(), Training.class)
                 .setParameter("username", username);
 
-        if (filter.getFromDate() != null) query.setParameter("fromDate", filter.getFromDate());
-        if (filter.getToDate() != null) query.setParameter("toDate", filter.getToDate());
+        if (filter.getFromDate() != null) {
+            query.setParameter("fromDate", filter.getFromDate());
+        }
+        if (filter.getToDate() != null) {
+            query.setParameter("toDate", filter.getToDate());
+        }
         if (filter.getTrainerName() != null && !filter.getTrainerName().isBlank()) {
             query.setParameter("trainerName", "%" + filter.getTrainerName().toLowerCase() + "%");
         }
@@ -74,6 +86,10 @@ public class TrainingDao {
     public List<Training> findTrainerTrainings(String username, TrainerTrainingFilter filter) {
         Session session = sessionFactory.getCurrentSession();
 
+        if (filter == null) {
+            filter = new TrainerTrainingFilter();
+        }
+
         StringBuilder hql = new StringBuilder("""
                 select trn
                 from Training trn
@@ -84,8 +100,12 @@ public class TrainingDao {
                 where tu.username = :username
                 """);
 
-        if (filter.getFromDate() != null) hql.append(" and trn.trainingDate >= :fromDate");
-        if (filter.getToDate() != null) hql.append(" and trn.trainingDate <= :toDate");
+        if (filter.getFromDate() != null) {
+            hql.append(" and trn.trainingDate >= :fromDate");
+        }
+        if (filter.getToDate() != null) {
+            hql.append(" and trn.trainingDate <= :toDate");
+        }
         if (filter.getTraineeName() != null && !filter.getTraineeName().isBlank()) {
             hql.append(" and lower(concat(traineeUser.firstName, ' ', traineeUser.lastName)) like :traineeName");
         }
@@ -93,8 +113,12 @@ public class TrainingDao {
         var query = session.createQuery(hql.toString(), Training.class)
                 .setParameter("username", username);
 
-        if (filter.getFromDate() != null) query.setParameter("fromDate", filter.getFromDate());
-        if (filter.getToDate() != null) query.setParameter("toDate", filter.getToDate());
+        if (filter.getFromDate() != null) {
+            query.setParameter("fromDate", filter.getFromDate());
+        }
+        if (filter.getToDate() != null) {
+            query.setParameter("toDate", filter.getToDate());
+        }
         if (filter.getTraineeName() != null && !filter.getTraineeName().isBlank()) {
             query.setParameter("traineeName", "%" + filter.getTraineeName().toLowerCase() + "%");
         }
