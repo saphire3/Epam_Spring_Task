@@ -157,7 +157,7 @@ public class TraineeService {
         return trainerDao.findNotAssignedToTrainee(traineeUsername);
     }
 
-    public void updateTrainerList(String traineeUsername, String password, List<String> trainerUsernames) {
+    public List<Trainer> updateTrainerList(String traineeUsername, String password, List<String> trainerUsernames) {
         validateUsername(traineeUsername);
         authService.requireTraineeAuth(traineeUsername, password);
 
@@ -181,6 +181,8 @@ public class TraineeService {
         trainee.setTrainers(newTrainers);
         traineeDao.update(trainee);
         log.info("Updated trainer list for trainee username={}", traineeUsername);
+
+        return List.copyOf(trainee.getTrainers());
     }
 
     private void validateTraineeForCreateOrUpdate(Trainee trainee) {

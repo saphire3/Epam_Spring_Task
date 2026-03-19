@@ -1,10 +1,10 @@
 package com.epam.training.dao;
 
-import com.epam.training.dto.TraineeTrainingFilter;
-import com.epam.training.dto.TrainerTrainingFilter;
+import com.epam.training.dto.filter.TraineeTrainingFilter;
+import com.epam.training.dto.filter.TrainerTrainingFilter;
 import com.epam.training.model.Training;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,93 +34,84 @@ public class TrainingDao {
     }
 
     public List<Training> findTraineeTrainings(String username, TraineeTrainingFilter filter) {
-        Session session = sessionFactory.getCurrentSession();
-
-        if (filter == null) {
-            filter = new TraineeTrainingFilter();
-        }
-
         StringBuilder hql = new StringBuilder("""
-                select trn
-                from Training trn
-                join trn.trainee trainee
-                join trainee.user tu
-                join trn.trainer trainer
-                join trainer.user trainerUser
-                join trn.trainingType tt
-                where tu.username = :username
+                select t
+                from Training t
+                where t.trainee.user.username = :username
                 """);
 
-        if (filter.getFromDate() != null) {
-            hql.append(" and trn.trainingDate >= :fromDate");
+        if (filter.getPeriodFrom() != null) {
+            hql.append(" and t.trainingDate >= :periodFrom");
         }
-        if (filter.getToDate() != null) {
-            hql.append(" and trn.trainingDate <= :toDate");
+        if (filter.getPeriodTo() != null) {
+            hql.append(" and t.trainingDate <= :periodTo");
         }
         if (filter.getTrainerName() != null && !filter.getTrainerName().isBlank()) {
-            hql.append(" and lower(concat(trainerUser.firstName, ' ', trainerUser.lastName)) like :trainerName");
+            hql.append("""
+                     and (
+                        lower(t.trainer.user.firstName) like lower(:trainerName)
+                        or lower(t.trainer.user.lastName) like lower(:trainerName)
+                     )
+                    """);
         }
-        if (filter.getTrainingType() != null && !filter.getTrainingType().isBlank()) {
-            hql.append(" and lower(tt.trainingTypeName) = :trainingType");
+        if (filter.getTrainingTypeName() != null && !filter.getTrainingTypeName().isBlank()) {
+            hql.append(" and lower(t.trainingType.trainingTypeName) = lower(:trainingTypeName)");
         }
 
-        var query = session.createQuery(hql.toString(), Training.class)
+        Query<Training> query = sessionFactory.getCurrentSession()
+                .createQuery(hql.toString(), Training.class)
                 .setParameter("username", username);
 
-        if (filter.getFromDate() != null) {
-            query.setParameter("fromDate", filter.getFromDate());
+        if (filter.getPeriodFrom() != null) {
+            query.setParameter("periodFrom", filter.getPeriodFrom());
         }
-        if (filter.getToDate() != null) {
-            query.setParameter("toDate", filter.getToDate());
+        if (filter.getPeriodTo() != null) {
+            query.setParameter("periodTo", filter.getPeriodTo());
         }
         if (filter.getTrainerName() != null && !filter.getTrainerName().isBlank()) {
-            query.setParameter("trainerName", "%" + filter.getTrainerName().toLowerCase() + "%");
+            query.setParameter("trainerName", "%" + filter.getTrainerName() + "%");
         }
-        if (filter.getTrainingType() != null && !filter.getTrainingType().isBlank()) {
-            query.setParameter("trainingType", filter.getTrainingType().toLowerCase());
+        if (filter.getTrainingTypeName() != null && !filter.getTrainingTypeName().isBlank()) {
+            query.setParameter("trainingTypeName", filter.getTrainingTypeName());
         }
 
         return query.getResultList();
     }
 
     public List<Training> findTrainerTrainings(String username, TrainerTrainingFilter filter) {
-        Session session = sessionFactory.getCurrentSession();
-
-        if (filter == null) {
-            filter = new TrainerTrainingFilter();
-        }
-
         StringBuilder hql = new StringBuilder("""
-                select trn
-                from Training trn
-                join trn.trainer trainer
-                join trainer.user tu
-                join trn.trainee trainee
-                join trainee.user traineeUser
-                where tu.username = :username
+                select t
+                from Training t
+                where t.trainer.user.username = :username
                 """);
 
-        if (filter.getFromDate() != null) {
-            hql.append(" and trn.trainingDate >= :fromDate");
+        if (filter.getPeriodFrom() != null) {
+            hql.append(" and t.trainingDate >= :periodFrom");
         }
-        if (filter.getToDate() != null) {
-            hql.append(" and trn.trainingDate <= :toDate");
+        if (filter.getPeriodTo() != null) {
+            hql.append(" and t.trainingDate <= :periodTo");
         }
         if (filter.getTraineeName() != null && !filter.getTraineeName().isBlank()) {
-            hql.append(" and lower(concat(traineeUser.firstName, ' ', traineeUser.lastName)) like :traineeName");
+            hql.append("""
+                     and (
+                        lower(t.trainee.user.firstName) like lower(:traineeName)
+                        or lower(t.trainee.user.lastName) like lower(:traineeName)
+                     )
+                    """);
         }
 
-        var query = session.createQuery(hql.toString(), Training.class)
+        Query<Training> query = sessionFactory.getCurrentSession()
+                .createQuery(hql.toString(), Training.class)
                 .setParameter("username", username);
 
-        if (filter.getFromDate() != null) {
-            query.setParameter("fromDate", filter.getFromDate());
+        if (filter.getPeriodFrom() != null) {
+            query.setParameter("periodFrom", filter.getPeriodFrom());
         }
-        if (filter.getToDate() != null) {
-            query.setParameter("toDate", filter.getToDate());
+        if (filter.getPeriodTo() != null) {
+            query.setParameter("periodTo", filter.getPeriodTo());
         }
         if (filter.getTraineeName() != null && !filter.getTraineeName().isBlank()) {
-            query.setParameter("traineeName", "%" + filter.getTraineeName().toLowerCase() + "%");
+            query.setParameter("traineeName", "%" + filter.getTraineeName() + "%");
         }
 
         return query.getResultList();

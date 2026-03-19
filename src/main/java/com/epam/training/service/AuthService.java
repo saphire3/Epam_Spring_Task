@@ -2,6 +2,7 @@ package com.epam.training.service;
 
 import com.epam.training.dao.TraineeDao;
 import com.epam.training.dao.TrainerDao;
+import com.epam.training.exception.AuthenticationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,13 +37,21 @@ public class AuthService {
 
     public void requireTraineeAuth(String username, String password) {
         if (!authenticateTrainee(username, password)) {
-            throw new IllegalArgumentException("Invalid trainee username or password");
+            throw new AuthenticationException("Invalid trainee username or password");
         }
     }
 
     public void requireTrainerAuth(String username, String password) {
         if (!authenticateTrainer(username, password)) {
-            throw new IllegalArgumentException("Invalid trainer username or password");
+            throw new AuthenticationException("Invalid trainer username or password");
+        }
+    }
+
+    public void requireAnyUserAuth(String username, String password) {
+        validateCredentials(username, password);
+
+        if (!authenticateTrainee(username, password) && !authenticateTrainer(username, password)) {
+            throw new AuthenticationException("Invalid username or password");
         }
     }
 
