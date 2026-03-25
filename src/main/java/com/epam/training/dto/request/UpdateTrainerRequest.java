@@ -1,6 +1,7 @@
 package com.epam.training.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class UpdateTrainerRequest {
 
@@ -15,6 +16,9 @@ public class UpdateTrainerRequest {
 
     @NotBlank(message = "Last name is required")
     private String lastName;
+
+    @NotNull(message = "Active status is required")
+    private Boolean active;
 
     public String getUsername() {
         return username;
@@ -46,5 +50,13 @@ public class UpdateTrainerRequest {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

@@ -2,9 +2,11 @@ package com.epam.training.service;
 
 import com.epam.training.dao.TraineeDao;
 import com.epam.training.dao.TrainerDao;
+import com.epam.training.exception.AuthenticationException;
 import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,75 +30,89 @@ class AuthServiceTest {
     @InjectMocks
     private AuthService authService;
 
-    @Test
-    void shouldAuthenticateTrainee() {
-        User user = new User();
-        user.setUsername("john.smith");
-        user.setPassword("pass123");
+    private Trainee trainee;
+    private Trainer trainer;
 
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
+    @BeforeEach
+    void setUp() {
+        trainee = new Trainee();
+        trainee.setUser(user("trainee.user", "pass123"));
 
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        assertTrue(authService.authenticateTrainee("john.smith", "pass123"));
+        trainer = new Trainer();
+        trainer.setUser(user("trainer.user", "pass456"));
     }
 
     @Test
-    void shouldNotAuthenticateTraineeWithWrongPassword() {
-        User user = new User();
-        user.setUsername("john.smith");
-        user.setPassword("pass123");
+    void authenticateTrainee_returnsTrue_whenCredentialsCorrect() {
+        when(traineeDao.findByUsername("trainee.user")).thenReturn(Optional.of(trainee));
 
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        assertFalse(authService.authenticateTrainee("john.smith", "wrong"));
+        assertTrue(authService.authenticateTrainee("trainee.user", "pass123"));
     }
 
     @Test
-    void shouldAuthenticateTrainer() {
-        User user = new User();
-        user.setUsername("anna.brown");
-        user.setPassword("trainer123");
+    void authenticateTrainee_returnsFalse_whenPasswordWrong() {
+        when(traineeDao.findByUsername("trainee.user")).thenReturn(Optional.of(trainee));
 
-        Trainer trainer = new Trainer();
-        trainer.setUser(user);
-
-        when(trainerDao.findByUsername("anna.brown")).thenReturn(Optional.of(trainer));
-
-        assertTrue(authService.authenticateTrainer("anna.brown", "trainer123"));
+        assertFalse(authService.authenticateTrainee("trainee.user", "wrong"));
     }
 
     @Test
-    void shouldRequireTraineeAuth() {
-        User user = new User();
-        user.setUsername("john.smith");
-        user.setPassword("pass123");
+    void authenticateTrainer_returnsTrue_whenCredentialsCorrect() {
+        when(trainerDao.findByUsername("trainer.user")).thenReturn(Optional.of(trainer));
 
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        assertDoesNotThrow(() -> authService.requireTraineeAuth("john.smith", "pass123"));
+        assertTrue(authService.authenticateTrainer("trainer.user", "pass456"));
     }
 
     @Test
-    void shouldThrowWhenTraineeAuthFails() {
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.empty());
+    void requireTraineeAuth_throws_whenInvalid() {
+        when(traineeDao.findByUsername("trainee.user")).thenReturn(Optional.empty());
 
+        assertThrows(AuthenticationException.class,
+                () -> authService.requireTraineeAuth("trainee.user", "pass123"));
+    }
+
+    @Test
+    void requireTrainerAuth_throws_whenInvalid() {
+        when(trainerDao.findByUsername("trainer.user")).thenReturn(Optional.empty());
+
+        assertThrows(AuthenticationException.class,
+                () -> authService.requireTrainerAuth("trainer.user", "pass456"));
+    }
+
+    @Test
+    void requireAnyUserAuth_passes_whenTrainerValid() {
+        when(traineeDao.findByUsername("trainer.user")).thenReturn(Optional.empty());
+        when(trainerDao.findByUsername("trainer.user")).thenReturn(Optional.of(trainer));
+
+        assertDoesNotThrow(() -> authService.requireAnyUserAuth("trainer.user", "pass456"));
+    }
+
+    @Test
+    void requireAnyUserAuth_throws_whenNoUserMatches() {
+        when(traineeDao.findByUsername("ghost")).thenReturn(Optional.empty());
+        when(trainerDao.findByUsername("ghost")).thenReturn(Optional.empty());
+
+        assertThrows(AuthenticationException.class,
+                () -> authService.requireAnyUserAuth("ghost", "123"));
+    }
+
+    @Test
+    void authenticateTrainee_throws_whenUsernameBlank() {
         assertThrows(IllegalArgumentException.class,
-                () -> authService.requireTraineeAuth("john.smith", "pass123"));
+                () -> authService.authenticateTrainee("", "pass123"));
     }
 
     @Test
-    void shouldThrowWhenTrainerAuthFails() {
-        when(trainerDao.findByUsername("anna.brown")).thenReturn(Optional.empty());
-
+    void authenticateTrainer_throws_whenPasswordBlank() {
         assertThrows(IllegalArgumentException.class,
-                () -> authService.requireTrainerAuth("anna.brown", "trainer123"));
+                () -> authService.authenticateTrainer("trainer.user", ""));
+    }
+
+    private User user(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setActive(true);
+        return user;
     }
 }

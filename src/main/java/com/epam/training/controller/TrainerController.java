@@ -15,6 +15,11 @@ import com.epam.training.model.Trainer;
 import com.epam.training.model.User;
 import com.epam.training.service.TrainerService;
 import com.epam.training.service.TrainingService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +28,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/trainers")
+@Api(tags = "Trainers")
 public class TrainerController {
 
     private final TrainerService trainerService;
@@ -35,7 +41,16 @@ public class TrainerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegistrationResponse> register(@Valid @RequestBody TrainerRegistrationRequest request) {
+    @ApiOperation("Register a trainer")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Trainer registered successfully"),
+            @ApiResponse(code = 400, message = "Validation error"),
+            @ApiResponse(code = 409, message = "Conflict")
+    })
+    public ResponseEntity<RegistrationResponse> register(
+            @ApiParam("Trainer registration request")
+            @Valid @RequestBody TrainerRegistrationRequest request) {
+
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
@@ -52,15 +67,32 @@ public class TrainerController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<TrainerProfileResponse> getProfile(@PathVariable String username,
-                                                             @RequestParam String password) {
+    @ApiOperation("Get trainer profile")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Trainer profile returned"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Trainer not found")
+    })
+    public ResponseEntity<TrainerProfileResponse> getProfile(
+            @ApiParam("Trainer username") @PathVariable String username,
+            @ApiParam("User password") @RequestParam String password) {
+
         Trainer trainer = trainerService.findByUsername(username, password);
         return ResponseEntity.ok(TrainerMapper.toProfileResponse(trainer));
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<TrainerProfileResponse> update(@PathVariable String username,
-                                                         @Valid @RequestBody UpdateTrainerRequest request) {
+    @ApiOperation("Update trainer profile")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Trainer updated successfully"),
+            @ApiResponse(code = 400, message = "Validation error"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Trainer not found")
+    })
+    public ResponseEntity<TrainerProfileResponse> update(
+            @ApiParam("Trainer username") @PathVariable String username,
+            @ApiParam("Update trainer request") @Valid @RequestBody UpdateTrainerRequest request) {
+
         if (!username.equals(request.getUsername())) {
             throw new BadRequestException("Username cannot be changed");
         }
@@ -68,6 +100,7 @@ public class TrainerController {
         User user = new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
+        user.setActive(Boolean.TRUE.equals(request.getActive()));
 
         Trainer trainer = new Trainer();
         trainer.setUser(user);
@@ -83,8 +116,17 @@ public class TrainerController {
     }
 
     @PatchMapping("/{username}/active")
-    public ResponseEntity<String> updateActiveStatus(@PathVariable String username,
-                                                     @Valid @RequestBody UpdateActiveStatusRequest request) {
+    @ApiOperation("Activate or deactivate trainer")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Trainer status updated"),
+            @ApiResponse(code = 400, message = "Validation or state error"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Trainer not found")
+    })
+    public ResponseEntity<String> updateActiveStatus(
+            @ApiParam("Trainer username") @PathVariable String username,
+            @ApiParam("Update active status request") @Valid @RequestBody UpdateActiveStatusRequest request) {
+
         if (!username.equals(request.getUsername())) {
             throw new BadRequestException("Username cannot be changed");
         }
@@ -99,8 +141,16 @@ public class TrainerController {
     }
 
     @GetMapping("/{username}/trainings")
-    public ResponseEntity<List<TrainerTrainingResponse>> getTrainings(@PathVariable String username,
-                                                                      @Valid @ModelAttribute TrainerTrainingsRequest request) {
+    @ApiOperation("Get trainer trainings by filters")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Trainer trainings returned"),
+            @ApiResponse(code = 400, message = "Validation error"),
+            @ApiResponse(code = 401, message = "Unauthorized")
+    })
+    public ResponseEntity<List<TrainerTrainingResponse>> getTrainings(
+            @ApiParam("Trainer username") @PathVariable String username,
+            @Valid @ModelAttribute TrainerTrainingsRequest request) {
+
         if (!username.equals(request.getUsername())) {
             throw new BadRequestException("Username cannot be changed");
         }

@@ -4,22 +4,22 @@ import com.epam.training.service.TraineeService;
 import com.epam.training.service.TrainerService;
 import com.epam.training.service.TrainingService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class GymFacadeTest {
 
     @Test
-    void shouldReturnServices() {
-        TraineeService traineeService = mock(TraineeService.class);
-        TrainerService trainerService = mock(TrainerService.class);
-        TrainingService trainingService = mock(TrainingService.class);
+    void getters_returnInjectedServices() {
+        TraineeService traineeService = Mockito.mock(TraineeService.class);
+        TrainerService trainerService = Mockito.mock(TrainerService.class);
+        TrainingService trainingService = Mockito.mock(TrainingService.class);
 
         GymFacade facade = new GymFacade(traineeService, trainerService, trainingService);
 
-        assertNotNull(facade.trainee());
-        assertNotNull(facade.trainer());
-        assertNotNull(facade.training());
+        assertSame(traineeService, facade.trainee());
+        assertSame(trainerService, facade.trainer());
+        assertSame(trainingService, facade.training());
     }
 }

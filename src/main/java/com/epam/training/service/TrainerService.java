@@ -1,7 +1,9 @@
 package com.epam.training.service;
 
+import com.epam.training.dao.TraineeDao;
 import com.epam.training.dao.TrainerDao;
 import com.epam.training.dao.TrainingTypeDao;
+import com.epam.training.exception.ConflictException;
 import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.TrainingType;
@@ -23,17 +25,20 @@ public class TrainerService {
     private static final Logger log = LoggerFactory.getLogger(TrainerService.class);
 
     private final TrainerDao trainerDao;
+    private final TraineeDao traineeDao;
     private final TrainingTypeDao trainingTypeDao;
     private final AuthService authService;
     private final UsernameGenerator usernameGenerator;
     private final PasswordGenerator passwordGenerator;
 
     public TrainerService(TrainerDao trainerDao,
+                          TraineeDao traineeDao,
                           TrainingTypeDao trainingTypeDao,
                           AuthService authService,
                           UsernameGenerator usernameGenerator,
                           PasswordGenerator passwordGenerator) {
         this.trainerDao = trainerDao;
+        this.traineeDao = traineeDao;
         this.trainingTypeDao = trainingTypeDao;
         this.authService = authService;
         this.usernameGenerator = usernameGenerator;
@@ -52,6 +57,11 @@ public class TrainerService {
 
         User user = trainer.getUser();
         String username = usernameGenerator.generate(user.getFirstName(), user.getLastName());
+
+        if (traineeDao.findByUsername(username).isPresent()) {
+            throw new ConflictException("User cannot be both trainer and trainee: " + username);
+        }
+
         user.setUsername(username);
         user.setPassword(passwordGenerator.generate());
         user.setActive(true);
@@ -81,6 +91,7 @@ public class TrainerService {
 
         existing.getUser().setFirstName(updated.getUser().getFirstName());
         existing.getUser().setLastName(updated.getUser().getLastName());
+        existing.getUser().setActive(updated.getUser().isActive());
 
         if (StringUtils.isNotBlank(specializationName)) {
             TrainingType specialization = trainingTypeDao.findByName(specializationName)

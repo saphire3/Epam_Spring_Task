@@ -1,6 +1,7 @@
 package com.epam.training.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
@@ -23,6 +24,9 @@ public class UpdateTraineeRequest {
     private LocalDate dateOfBirth;
 
     private String address;
+
+    @NotNull(message = "Active status is required")
+    private Boolean active;
 
     public String getUsername() {
         return username;
@@ -70,5 +74,13 @@ public class UpdateTraineeRequest {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

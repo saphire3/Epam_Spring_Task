@@ -51,13 +51,15 @@ public class TrainerDao {
                 .createQuery("""
                         select tr
                         from Trainer tr
-                        where tr.id not in (
-                            select t2.id
-                            from Trainee t
-                            join t.trainers t2
-                            join t.user tu
-                            where tu.username = :username
-                        )
+                        join tr.user tru
+                        where tru.active = true
+                          and tr.id not in (
+                              select t2.id
+                              from Trainee t
+                              join t.trainers t2
+                              join t.user tu
+                              where tu.username = :username
+                          )
                         """, Trainer.class)
                 .setParameter("username", traineeUsername)
                 .getResultList();

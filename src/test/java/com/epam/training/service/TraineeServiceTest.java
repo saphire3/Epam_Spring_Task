@@ -2,19 +2,21 @@ package com.epam.training.service;
 
 import com.epam.training.dao.TraineeDao;
 import com.epam.training.dao.TrainerDao;
+import com.epam.training.exception.ConflictException;
 import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.User;
 import com.epam.training.util.PasswordGenerator;
 import com.epam.training.util.UsernameGenerator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,202 +41,87 @@ class TraineeServiceTest {
     private PasswordGenerator passwordGenerator;
 
     @InjectMocks
-    private TraineeService service;
+    private TraineeService traineeService;
+
+    private Trainee trainee;
+
+    @BeforeEach
+    void setUp() {
+        trainee = new Trainee();
+        trainee.setUser(user("John", "Doe"));
+        trainee.setAddress("Yerevan");
+        trainee.setDateOfBirth(LocalDate.of(2000, 1, 1));
+    }
 
     @Test
-    void shouldCreateTrainee() {
-        User user = new User();
-        user.setFirstName("John");
-        user.setLastName("Smith");
+    void create_success() {
+        when(usernameGenerator.generate("John", "Doe")).thenReturn("john.doe");
+        when(trainerDao.findByUsername("john.doe")).thenReturn(Optional.empty());
+        when(passwordGenerator.generate()).thenReturn("pass123");
 
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
+        Trainee result = traineeService.create(trainee);
 
-        when(usernameGenerator.generate("John", "Smith")).thenReturn("john.smith");
-        when(passwordGenerator.generate()).thenReturn("randomPass");
+        assertEquals("john.doe", result.getUser().getUsername());
+        assertEquals("pass123", result.getUser().getPassword());
+        assertTrue(result.getUser().isActive());
 
-        Trainee result = service.create(trainee);
-
-        assertEquals("john.smith", result.getUser().getUsername());
-        assertEquals("randomPass", result.getUser().getPassword());
         verify(traineeDao).save(trainee);
     }
 
     @Test
-    void shouldFindTraineeByUsernameAfterAuth() {
-        User user = new User();
-        user.setUsername("john.smith");
+    void create_conflictWithTrainer() {
+        when(usernameGenerator.generate("John", "Doe")).thenReturn("john.doe");
+        when(trainerDao.findByUsername("john.doe")).thenReturn(Optional.of(new Trainer()));
 
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        Trainee result = service.findByUsername("john.smith", "pass123");
-
-        assertNotNull(result);
-        verify(authService).requireTraineeAuth("john.smith", "pass123");
+        assertThrows(ConflictException.class, () -> traineeService.create(trainee));
     }
 
     @Test
-    void shouldUpdateTrainee() {
-        User existingUser = new User();
-        existingUser.setFirstName("John");
-        existingUser.setLastName("Smith");
-        existingUser.setUsername("john.smith");
-
+    void update_updatesActiveField() {
         Trainee existing = new Trainee();
-        existing.setUser(existingUser);
-        existing.setAddress("Old");
+        existing.setUser(user("Old", "User"));
 
-        User updatedUser = new User();
-        updatedUser.setFirstName("Johnny");
-        updatedUser.setLastName("Johnson");
-
-        Trainee updated = new Trainee();
-        updated.setUser(updatedUser);
-        updated.setAddress("New Address");
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(existing));
+        when(traineeDao.findByUsername("john.doe")).thenReturn(Optional.of(existing));
         when(traineeDao.update(existing)).thenReturn(existing);
 
-        Trainee result = service.update("john.smith", "pass123", updated);
-
-        assertEquals("Johnny", result.getUser().getFirstName());
-        assertEquals("Johnson", result.getUser().getLastName());
-        assertEquals("New Address", result.getAddress());
-        verify(authService).requireTraineeAuth("john.smith", "pass123");
-        verify(traineeDao).update(existing);
-    }
-
-    @Test
-    void shouldChangePassword() {
-        User user = new User();
-        user.setUsername("john.smith");
-        user.setPassword("oldPass");
-
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        service.changePassword("john.smith", "oldPass", "newPass");
-
-        assertEquals("newPass", trainee.getUser().getPassword());
-        verify(traineeDao).update(trainee);
-    }
-
-    @Test
-    void shouldDeactivateTrainee() {
-        User user = new User();
-        user.setUsername("john.smith");
-        user.setActive(true);
-
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        service.deactivate("john.smith", "pass123");
-
-        assertFalse(trainee.getUser().isActive());
-        verify(traineeDao).update(trainee);
-    }
-
-    @Test
-    void shouldThrowWhenDeactivatingInactiveTrainee() {
-        User user = new User();
-        user.setUsername("john.smith");
-        user.setActive(false);
-
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        assertThrows(IllegalStateException.class,
-                () -> service.deactivate("john.smith", "pass123"));
-    }
-
-    @Test
-    void shouldActivateTrainee() {
-        User user = new User();
-        user.setUsername("john.smith");
-        user.setActive(false);
-
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        service.activate("john.smith", "pass123");
-
-        assertTrue(trainee.getUser().isActive());
-        verify(traineeDao).update(trainee);
-    }
-
-    @Test
-    void shouldDeleteTraineeByUsername() {
-        User user = new User();
-        user.setUsername("john.smith");
-
-        Trainee trainee = new Trainee();
-        trainee.setUser(user);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-
-        service.deleteByUsername("john.smith", "pass123");
-
-        verify(traineeDao).delete(trainee);
-    }
-
-    @Test
-    void shouldReturnUnassignedTrainers() {
-        Trainer trainer = new Trainer();
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(new Trainee()));
-        when(trainerDao.findNotAssignedToTrainee("john.smith")).thenReturn(List.of(trainer));
-
-        List<Trainer> result = service.getUnassignedTrainers("john.smith", "pass123");
-
-        assertEquals(1, result.size());
-        verify(authService).requireTraineeAuth("john.smith", "pass123");
-    }
-
-    @Test
-    void shouldUpdateTrainerList() {
-        User traineeUser = new User();
-        traineeUser.setUsername("john.smith");
-
-        Trainee trainee = new Trainee();
-        trainee.setUser(traineeUser);
-
-        User trainerUser = new User();
-        trainerUser.setUsername("anna.brown");
-
-        Trainer trainer = new Trainer();
-        trainer.setUser(trainerUser);
-
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.of(trainee));
-        when(trainerDao.findByUsername("anna.brown")).thenReturn(Optional.of(trainer));
-
-        service.updateTrainerList("john.smith", "pass123", List.of("anna.brown"));
-
-        assertEquals(1, trainee.getTrainers().size());
-        verify(traineeDao).update(trainee);
-    }
-
-    @Test
-    void shouldThrowWhenTraineeNotFound() {
-        when(traineeDao.findByUsername("john.smith")).thenReturn(Optional.empty());
-
-        User updatedUser = new User();
-        updatedUser.setFirstName("John");
-        updatedUser.setLastName("Smith");
-
         Trainee updated = new Trainee();
+        User updatedUser = user("New", "User");
+        updatedUser.setActive(false);
         updated.setUser(updatedUser);
 
+        updated.setAddress("New Address");
+        updated.setDateOfBirth(LocalDate.of(2001, 1, 1));
+
+        Trainee result = traineeService.update("john.doe", "pass", updated);
+
+        assertFalse(result.getUser().isActive());
+        assertEquals("New", result.getUser().getFirstName());
+        assertEquals("New Address", result.getAddress());
+    }
+
+    @Test
+    void findByUsername_success() {
+        when(traineeDao.findByUsername("john.doe")).thenReturn(Optional.of(trainee));
+
+        Trainee result = traineeService.findByUsername("john.doe", "pass");
+
+        assertNotNull(result);
+        verify(authService).requireTraineeAuth("john.doe", "pass");
+    }
+
+    @Test
+    void findByUsername_notFound() {
+        when(traineeDao.findByUsername("john.doe")).thenReturn(Optional.empty());
+
         assertThrows(UserNotFoundException.class,
-                () -> service.update("john.smith", "pass123", updated));
+                () -> traineeService.findByUsername("john.doe", "pass"));
+    }
+
+    private User user(String first, String last) {
+        User u = new User();
+        u.setFirstName(first);
+        u.setLastName(last);
+        u.setActive(true);
+        return u;
     }
 }

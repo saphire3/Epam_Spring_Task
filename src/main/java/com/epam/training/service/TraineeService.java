@@ -2,6 +2,7 @@ package com.epam.training.service;
 
 import com.epam.training.dao.TraineeDao;
 import com.epam.training.dao.TrainerDao;
+import com.epam.training.exception.ConflictException;
 import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
@@ -47,6 +48,11 @@ public class TraineeService {
 
         User user = trainee.getUser();
         String username = usernameGenerator.generate(user.getFirstName(), user.getLastName());
+
+        if (trainerDao.findByUsername(username).isPresent()) {
+            throw new ConflictException("User cannot be both trainee and trainer: " + username);
+        }
+
         user.setUsername(username);
         user.setPassword(passwordGenerator.generate());
         user.setActive(true);
@@ -75,6 +81,7 @@ public class TraineeService {
 
         existing.getUser().setFirstName(updated.getUser().getFirstName());
         existing.getUser().setLastName(updated.getUser().getLastName());
+        existing.getUser().setActive(updated.getUser().isActive());
         existing.setAddress(updated.getAddress());
         existing.setDateOfBirth(updated.getDateOfBirth());
 
