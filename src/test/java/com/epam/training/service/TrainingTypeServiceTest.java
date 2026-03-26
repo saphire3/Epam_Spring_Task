@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +26,7 @@ class TrainingTypeServiceTest {
     private TrainingTypeService trainingTypeService;
 
     @Test
-    void findAll_mapsToResponse() throws Exception {
+    void findAll_mapsResponses() throws Exception {
         TrainingType one = new TrainingType();
         setId(one, 1L);
         one.setTrainingTypeName("FITNESS");
@@ -41,7 +42,17 @@ class TrainingTypeServiceTest {
         assertEquals(2, result.size());
         assertEquals(1L, result.get(0).getId());
         assertEquals("FITNESS", result.get(0).getTrainingTypeName());
+        assertEquals(2L, result.get(1).getId());
         assertEquals("YOGA", result.get(1).getTrainingTypeName());
+    }
+
+    @Test
+    void findAll_returnsEmpty_whenNoTypes() {
+        when(trainingTypeDao.findAll()).thenReturn(Collections.emptyList());
+
+        List<TrainingTypeResponse> result = trainingTypeService.findAll();
+
+        assertEquals(0, result.size());
     }
 
     private void setId(TrainingType type, Long id) throws Exception {

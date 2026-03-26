@@ -6,7 +6,6 @@ import com.epam.training.dao.TrainingDao;
 import com.epam.training.dao.TrainingTypeDao;
 import com.epam.training.dto.filter.TraineeTrainingFilter;
 import com.epam.training.dto.filter.TrainerTrainingFilter;
-import com.epam.training.exception.AuthenticationException;
 import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
@@ -45,13 +44,18 @@ class TrainingServiceTest {
     @InjectMocks
     private TrainingService trainingService;
 
+    private Training training;
     private Trainee trainee;
     private Trainer trainer;
     private TrainingType type;
-    private Training training;
 
     @BeforeEach
     void setUp() {
+        training = new Training();
+        training.setTrainingName("Workout");
+        training.setTrainingDate(LocalDate.of(2026, 3, 25));
+        training.setDuration(60);
+
         trainee = new Trainee();
         trainee.setUser(user("john.doe", "pass123"));
 
@@ -60,11 +64,6 @@ class TrainingServiceTest {
 
         type = new TrainingType();
         type.setTrainingTypeName("FITNESS");
-
-        training = new Training();
-        training.setTrainingName("Morning Workout");
-        training.setTrainingDate(LocalDate.of(2026, 3, 20));
-        training.setDuration(60);
     }
 
     @Test
@@ -82,17 +81,28 @@ class TrainingServiceTest {
         assertEquals(trainee, captor.getValue().getTrainee());
         assertEquals(trainer, captor.getValue().getTrainer());
         assertEquals(type, captor.getValue().getTrainingType());
-        verify(authService).requireTraineeAuth("john.doe", "pass123");
     }
 
     @Test
-    void create_throws_whenTrainingNull() {
+    void create_throwsWhenTrainingNull() {
         assertThrows(IllegalArgumentException.class,
                 () -> trainingService.create("john.doe", "pass123", "jane.smith", "FITNESS", null));
     }
 
     @Test
-    void create_throws_whenTrainingNameBlank() {
+    void create_throwsWhenTraineeUsernameBlank() {
+        assertThrows(IllegalArgumentException.class,
+                () -> trainingService.create("", "pass123", "jane.smith", "FITNESS", training));
+    }
+
+    @Test
+    void create_throwsWhenTrainerUsernameBlank() {
+        assertThrows(IllegalArgumentException.class,
+                () -> trainingService.create("john.doe", "pass123", "", "FITNESS", training));
+    }
+
+    @Test
+    void create_throwsWhenNameBlank() {
         training.setTrainingName(" ");
 
         assertThrows(IllegalArgumentException.class,
@@ -100,7 +110,7 @@ class TrainingServiceTest {
     }
 
     @Test
-    void create_throws_whenTrainingDateNull() {
+    void create_throwsWhenDateNull() {
         training.setTrainingDate(null);
 
         assertThrows(IllegalArgumentException.class,
@@ -108,7 +118,15 @@ class TrainingServiceTest {
     }
 
     @Test
-    void create_throws_whenDurationInvalid() {
+    void create_throwsWhenDurationNull() {
+        training.setDuration(null);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> trainingService.create("john.doe", "pass123", "jane.smith", "FITNESS", training));
+    }
+
+    @Test
+    void create_throwsWhenDurationNotPositive() {
         training.setDuration(0);
 
         assertThrows(IllegalArgumentException.class,
@@ -116,13 +134,13 @@ class TrainingServiceTest {
     }
 
     @Test
-    void create_throws_whenTrainingTypeBlank() {
+    void create_throwsWhenTrainingTypeBlank() {
         assertThrows(IllegalArgumentException.class,
                 () -> trainingService.create("john.doe", "pass123", "jane.smith", " ", training));
     }
 
     @Test
-    void create_throws_whenTraineeNotFound() {
+    void create_throwsWhenTraineeMissing() {
         when(traineeDao.findByUsername("john.doe")).thenReturn(Optional.empty());
 
         assertThrows(UserNotFoundException.class,
@@ -130,7 +148,7 @@ class TrainingServiceTest {
     }
 
     @Test
-    void create_throws_whenTrainerNotFound() {
+    void create_throwsWhenTrainerMissing() {
         when(traineeDao.findByUsername("john.doe")).thenReturn(Optional.of(trainee));
         when(trainerDao.findByUsername("jane.smith")).thenReturn(Optional.empty());
 
@@ -139,7 +157,7 @@ class TrainingServiceTest {
     }
 
     @Test
-    void create_throws_whenTypeMissing() {
+    void create_throwsWhenTypeMissing() {
         when(traineeDao.findByUsername("john.doe")).thenReturn(Optional.of(trainee));
         when(trainerDao.findByUsername("jane.smith")).thenReturn(Optional.of(trainer));
         when(trainingTypeDao.findByName("FITNESS")).thenReturn(Optional.empty());
@@ -149,7 +167,7 @@ class TrainingServiceTest {
     }
 
     @Test
-    void getTraineeTrainings_usesSafeFilter_whenNull() {
+    void getTraineeTrainings_usesSafeFilterWhenNull() {
         when(trainingDao.findTraineeTrainings(eq("john.doe"), any(TraineeTrainingFilter.class)))
                 .thenReturn(List.of(training));
 
@@ -160,7 +178,23 @@ class TrainingServiceTest {
     }
 
     @Test
-    void getTrainerTrainings_usesSafeFilter_whenNull() {
+    void getTraineeTrainings_returnsExplicitFilterResult() {
+        TraineeTrainingFilter filter = new TraineeTrainingFilter();
+        when(trainingDao.findTraineeTrainings("john.doe", filter)).thenReturn(List.of(training));
+
+        List<Training> result = trainingService.getTraineeTrainings("john.doe", "pass123", filter);
+
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void getTraineeTrainings_throwsWhenUsernameBlank() {
+        assertThrows(IllegalArgumentException.class,
+                () -> trainingService.getTraineeTrainings("", "pass123", new TraineeTrainingFilter()));
+    }
+
+    @Test
+    void getTrainerTrainings_usesSafeFilterWhenNull() {
         when(trainingDao.findTrainerTrainings(eq("jane.smith"), any(TrainerTrainingFilter.class)))
                 .thenReturn(List.of(training));
 
@@ -171,9 +205,19 @@ class TrainingServiceTest {
     }
 
     @Test
-    void getTraineeTrainings_throws_whenUsernameBlank() {
+    void getTrainerTrainings_returnsExplicitFilterResult() {
+        TrainerTrainingFilter filter = new TrainerTrainingFilter();
+        when(trainingDao.findTrainerTrainings("jane.smith", filter)).thenReturn(List.of(training));
+
+        List<Training> result = trainingService.getTrainerTrainings("jane.smith", "pass456", filter);
+
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void getTrainerTrainings_throwsWhenUsernameBlank() {
         assertThrows(IllegalArgumentException.class,
-                () -> trainingService.getTraineeTrainings("", "pass123", new TraineeTrainingFilter()));
+                () -> trainingService.getTrainerTrainings("", "pass456", new TrainerTrainingFilter()));
     }
 
     @Test

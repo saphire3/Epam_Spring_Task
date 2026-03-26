@@ -26,31 +26,32 @@ class UserServiceTest {
     @Test
     void getByUsername_returnsUser_whenFound() {
         User user = new User();
-        user.setUsername("john");
+        user.setUsername("john.doe");
 
-        when(userDao.findByUsername("john")).thenReturn(Optional.of(user));
+        when(userDao.findByUsername("john.doe")).thenReturn(Optional.of(user));
 
-        User result = userService.getByUsername("john");
+        User result = userService.getByUsername("john.doe");
 
-        assertEquals("john", result.getUsername());
+        assertEquals("john.doe", result.getUsername());
     }
 
     @Test
-    void getByUsername_throws_whenNotFound() {
-        when(userDao.findByUsername("john")).thenReturn(Optional.empty());
+    void getByUsername_throws_whenMissing() {
+        when(userDao.findByUsername("missing")).thenReturn(Optional.empty());
 
-        assertThrows(UserNotFoundException.class, () -> userService.getByUsername("john"));
+        assertThrows(UserNotFoundException.class,
+                () -> userService.getByUsername("missing"));
     }
 
     @Test
     void update_returnsMergedUser() {
         User user = new User();
-        user.setUsername("john");
+        user.setUsername("john.doe");
 
         when(userDao.merge(user)).thenReturn(user);
 
         User result = userService.update(user);
 
-        assertEquals("john", result.getUsername());
+        assertSame(user, result);
     }
 }
