@@ -1,0 +1,5 @@
+$kind: http-request
+name: Add Training
+url: http://localhost:8080/api/trainings
+method: POST
+order: 4503598648049327

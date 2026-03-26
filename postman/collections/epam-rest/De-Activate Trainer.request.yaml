@@ -1,0 +1,13 @@
+$kind: http-request
+name: De-Activate Trainer
+url: http://localhost:8080/api/trainers/jane.smith/active
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+      "username": "jane.smith",
+      "password": "JohnNewPass456",
+      "active": false
+    }
+order: 4503599407093133

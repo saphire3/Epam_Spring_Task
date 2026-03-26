@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Trainee Trainings List
+url: ""
+method: GET
+order: 4503560192049064

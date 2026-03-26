@@ -1,0 +1,8 @@
+$kind: http-request
+name: Login
+url: http://localhost:8080/api/auth/login?username=Jane.Smith&password=TrainerPass123
+method: GET
+queryParams:
+  username: Jane.Smith
+  password: TrainerPass123
+order: 3103246933220039

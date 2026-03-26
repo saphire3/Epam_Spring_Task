@@ -1,0 +1,13 @@
+$kind: http-request
+name: Trainer Registration
+url: http://localhost:8080/api/trainers/register
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "specializationName": "YOGA"
+    }
+order: 2834041132097679

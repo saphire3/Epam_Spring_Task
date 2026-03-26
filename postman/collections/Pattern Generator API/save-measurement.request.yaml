@@ -1,0 +1,17 @@
+$kind: http-request
+name: save-measurement
+url: http://localhost:8080/api/measurements
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "code": "SLEEVE_LENGTH",
+      "value": 21.0
+    }
+auth:
+  credentials:
+    - key: token
+      value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYWciLCJpYXQiOjE3NzQyODY4NTAsImV4cCI6MTc3NDM3MzI1MH0.0UIJEl1xjtuDenhRhu4OVEdmkNwL3s_Z96Vy6g12wHY
+  type: bearer
+order: 2644508397989005

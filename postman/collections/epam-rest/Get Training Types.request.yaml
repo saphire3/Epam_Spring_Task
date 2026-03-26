@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Training Types
+url: ""
+method: GET
+order: 4503599603760265

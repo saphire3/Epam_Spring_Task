@@ -1,0 +1,14 @@
+$kind: http-request
+name: Trainee Registration
+url: http://localhost:8080/api/trainees/register
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "2000-01-01",
+      "address": "Yerevan"
+    }
+order: 1774537866024

@@ -1,0 +1,9 @@
+$kind: http-request
+name: my-selected-pattern
+url: http://localhost:8080/api/patterns/my-selection
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYWciLCJpYXQiOjE3NzQyODY4NTAsImV4cCI6MTc3NDM3MzI1MH0.0UIJEl1xjtuDenhRhu4OVEdmkNwL3s_Z96Vy6g12wHY
+order: 4501800596204200

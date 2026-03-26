@@ -1,0 +1,16 @@
+$kind: http-request
+name: select-pattern
+url: http://localhost:8080/api/patterns/select
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "basePatternId": 1
+    }
+auth:
+  credentials:
+    - key: token
+      value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYWciLCJpYXQiOjE3NzQyODY4NTAsImV4cCI6MTc3NDM3MzI1MH0.0UIJEl1xjtuDenhRhu4OVEdmkNwL3s_Z96Vy6g12wHY
+  type: bearer
+order: 4490586925720009

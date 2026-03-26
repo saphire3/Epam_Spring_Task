@@ -1,0 +1,15 @@
+$kind: http-request
+name: Update Trainer Profile
+url: http://localhost:8080/api/trainers/jane.smith
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+      "username": "jane.smith",
+      "password": "JohnNewPass456",
+      "firstName": "Jane",
+      "lastName": "SmithUpdated",
+      "active": true
+    }
+order: 4492069302103596

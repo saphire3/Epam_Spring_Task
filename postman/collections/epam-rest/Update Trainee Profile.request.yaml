@@ -1,0 +1,17 @@
+$kind: http-request
+name: Update Trainee Profile
+url: http://localhost:8080/api/trainees/john.doe
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+      "username": "john.doe",
+      "password": "L6zKn2leYR",
+      "firstName": "John",
+      "lastName": "DoeUpdated",
+      "dateOfBirth": "2000-01-01",
+      "address": "New Address, Yerevan",
+      "active": true
+    }
+order: 4326083441820030

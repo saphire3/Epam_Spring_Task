@@ -1,0 +1,13 @@
+$kind: http-request
+name: De-Activate Trainee
+url: http://localhost:8080/api/trainees/John.Doe/active
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+      "username": "John.Doe",
+      "password": "JohnNewPass456",
+      "active": false
+    }
+order: 4503599164464231

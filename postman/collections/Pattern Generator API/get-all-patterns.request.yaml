@@ -1,0 +1,10 @@
+$kind: http-request
+name: get-all-patterns
+url: http://localhost:8080/api/patterns
+method: GET
+auth:
+  credentials:
+    - key: token
+      value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYWciLCJpYXQiOjE3NzQyODY4NTAsImV4cCI6MTc3NDM3MzI1MH0.0UIJEl1xjtuDenhRhu4OVEdmkNwL3s_Z96Vy6g12wHY
+  type: bearer
+order: 4479190061498100

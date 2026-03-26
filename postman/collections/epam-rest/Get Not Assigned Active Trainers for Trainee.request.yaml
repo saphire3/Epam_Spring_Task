@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Not Assigned Active Trainers for Trainee
+url: ""
+method: GET
+order: 4502989992699833

@@ -1,0 +1,15 @@
+$kind: http-request
+name: Update Trainee’s Trainer List
+url: http://localhost:8080/api/trainees/john.doe/trainers
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+      "traineeUsername": "john.doe",
+      "password": "n6ZKv8hTTb",
+      "trainerUsernames": [
+        "jane.smith"
+      ]
+    }
+order: 4503549768385797
