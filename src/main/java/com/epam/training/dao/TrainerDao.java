@@ -31,9 +31,12 @@ public class TrainerDao {
     public Optional<Trainer> findByUsername(String username) {
         return sessionFactory.getCurrentSession()
                 .createQuery("""
-                        select t
+                        select distinct t
                         from Trainer t
-                        join t.user u
+                        join fetch t.user u
+                        left join fetch t.trainees trn
+                        left join fetch trn.user trnu
+                        left join fetch t.specialization
                         where u.username = :username
                         """, Trainer.class)
                 .setParameter("username", username)
