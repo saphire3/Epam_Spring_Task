@@ -4,6 +4,7 @@ import com.epam.training.dao.TraineeDao;
 import com.epam.training.dao.TrainerDao;
 import com.epam.training.exception.ConflictException;
 import com.epam.training.exception.UserNotFoundException;
+import com.epam.training.metrics.GymMetrics;
 import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.User;
@@ -30,17 +31,20 @@ public class TraineeService {
     private final AuthService authService;
     private final UsernameGenerator usernameGenerator;
     private final PasswordGenerator passwordGenerator;
+    private final GymMetrics gymMetrics;
 
     public TraineeService(TraineeDao traineeDao,
                           TrainerDao trainerDao,
                           AuthService authService,
                           UsernameGenerator usernameGenerator,
-                          PasswordGenerator passwordGenerator) {
+                          PasswordGenerator passwordGenerator,
+                          GymMetrics gymMetrics) {
         this.traineeDao = traineeDao;
         this.trainerDao = trainerDao;
         this.authService = authService;
         this.usernameGenerator = usernameGenerator;
         this.passwordGenerator = passwordGenerator;
+        this.gymMetrics = gymMetrics;
     }
 
     public Trainee create(Trainee trainee) {
@@ -58,6 +62,7 @@ public class TraineeService {
         user.setActive(true);
 
         traineeDao.save(trainee);
+        gymMetrics.incrementTraineeRegistrations();
         log.info("Created trainee profile for username={}", username);
         return trainee;
     }

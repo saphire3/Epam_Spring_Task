@@ -7,6 +7,7 @@ import com.epam.training.dao.TrainingTypeDao;
 import com.epam.training.dto.filter.TraineeTrainingFilter;
 import com.epam.training.dto.filter.TrainerTrainingFilter;
 import com.epam.training.exception.UserNotFoundException;
+import com.epam.training.metrics.GymMetrics;
 import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.Training;
@@ -40,6 +41,8 @@ class TrainingServiceTest {
     private TrainingTypeDao trainingTypeDao;
     @Mock
     private AuthService authService;
+    @Mock
+    private GymMetrics gymMetrics;
 
     @InjectMocks
     private TrainingService trainingService;

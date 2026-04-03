@@ -14,7 +14,27 @@ class HibernateConfigTest {
 
     @Test
     void sessionFactory_returnsBean() {
-        HibernateConfig config = new HibernateConfig();
+        HibernateConfig config = new HibernateConfig("create-drop", false);
+        DataSource dataSource = mock(DataSource.class);
+
+        LocalSessionFactoryBean bean = config.sessionFactory(dataSource);
+
+        assertNotNull(bean);
+    }
+
+    @Test
+    void sessionFactory_withShowSqlEnabled() {
+        HibernateConfig config = new HibernateConfig("create-drop", true);
+        DataSource dataSource = mock(DataSource.class);
+
+        LocalSessionFactoryBean bean = config.sessionFactory(dataSource);
+
+        assertNotNull(bean);
+    }
+
+    @Test
+    void sessionFactory_withUpdateDdlAuto() {
+        HibernateConfig config = new HibernateConfig("update", false);
         DataSource dataSource = mock(DataSource.class);
 
         LocalSessionFactoryBean bean = config.sessionFactory(dataSource);
@@ -24,7 +44,7 @@ class HibernateConfigTest {
 
     @Test
     void transactionManager_returnsBean() {
-        HibernateConfig config = new HibernateConfig();
+        HibernateConfig config = new HibernateConfig("create-drop", false);
         SessionFactory sessionFactory = mock(SessionFactory.class);
 
         HibernateTransactionManager txManager = config.transactionManager(sessionFactory);

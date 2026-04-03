@@ -5,6 +5,7 @@ import com.epam.training.dao.TrainerDao;
 import com.epam.training.dao.TrainingTypeDao;
 import com.epam.training.exception.ConflictException;
 import com.epam.training.exception.UserNotFoundException;
+import com.epam.training.metrics.GymMetrics;
 import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.TrainingType;
@@ -39,6 +40,8 @@ class TrainerServiceTest {
     private UsernameGenerator usernameGenerator;
     @Mock
     private PasswordGenerator passwordGenerator;
+    @Mock
+    private GymMetrics gymMetrics;
 
     @InjectMocks
     private TrainerService trainerService;
