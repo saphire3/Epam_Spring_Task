@@ -1,20 +1,15 @@
 package com.epam.training.config;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AppConfigTest {
 
     @Test
-    void shouldLoadSpringContext() {
-
-        AnnotationConfigApplicationContext context =
-                new AnnotationConfigApplicationContext(AppConfig.class);
-
-        assertNotNull(context);
-
-        context.close();
+    void shouldHaveEnableSchedulingAnnotation() {
+        EnableScheduling annotation = AppConfig.class.getAnnotation(EnableScheduling.class);
+        assertNotNull(annotation);
     }
 }

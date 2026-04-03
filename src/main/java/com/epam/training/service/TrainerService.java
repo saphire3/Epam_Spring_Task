@@ -1,103 +1,112 @@
 package com.epam.training.service;
 
-import com.epam.training.dao.TrainerDao;
+import com.epam.training.exception.TrainingTypeNotFoundException;
 import com.epam.training.exception.UserNotFoundException;
-import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
+import com.epam.training.model.TrainingType;
+import com.epam.training.repository.TrainerRepository;
+import com.epam.training.repository.TrainingTypeRepository;
 import com.epam.training.util.PasswordGenerator;
 import com.epam.training.util.UsernameGenerator;
-import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TrainerService {
 
-    private final TrainerDao trainerDao;
+    private static final Logger log = LoggerFactory.getLogger(TrainerService.class);
+
+    private final TrainerRepository trainerRepository;
+    private final TrainingTypeRepository trainingTypeRepository;
     private final UsernameGenerator usernameGenerator;
     private final PasswordGenerator passwordGenerator;
+    private final PasswordEncoder passwordEncoder;
 
-    public TrainerService(TrainerDao trainerDao,
+    public TrainerService(TrainerRepository trainerRepository,
+                          TrainingTypeRepository trainingTypeRepository,
                           UsernameGenerator usernameGenerator,
-                          PasswordGenerator passwordGenerator) {
-        this.trainerDao = trainerDao;
+                          PasswordGenerator passwordGenerator,
+                          PasswordEncoder passwordEncoder) {
+        this.trainerRepository = trainerRepository;
+        this.trainingTypeRepository = trainingTypeRepository;
         this.usernameGenerator = usernameGenerator;
         this.passwordGenerator = passwordGenerator;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public Trainer create(Trainer trainer) {
+    /**
+     * Creates a new trainer. Returns array [username, plainPassword].
+     */
+    public String[] create(Trainer trainer, String specializationName) {
+        TrainingType trainingType = trainingTypeRepository.findByTrainingTypeName(specializationName)
+                .orElseThrow(() -> new TrainingTypeNotFoundException(specializationName));
 
-        validate(trainer);
-
-        String username = usernameGenerator.generate(
-                trainer.getFirstName(),
-                trainer.getLastName()
-        );
+        String username = usernameGenerator.generate(trainer.getFirstName(), trainer.getLastName());
+        String rawPassword = passwordGenerator.generate();
+        String encodedPassword = passwordEncoder.encode(rawPassword);
 
         trainer.setUsername(username);
-        trainer.setPassword(passwordGenerator.generate());
+        trainer.setPassword(encodedPassword);
+        trainer.setActive(true);
+        trainer.setSpecialization(trainingType);
 
-        Long id = (long) (trainerDao.findAll().size() + 1);
-        trainer.setId(id);
-
-        trainerDao.save(id, trainer);
-
-        return trainer;
+        trainerRepository.save(trainer);
+        log.info("Created trainer with username: {}", username);
+        return new String[]{username, rawPassword};
     }
 
-    public Trainer update(Long id, Trainer updated) {
+    @Transactional(readOnly = true)
+    public Trainer findByUsername(String username) {
+        return trainerRepository.findByUsername(username)
+                .orElseThrow(() -> {
+                    log.warn("Trainer not found: {}", username);
+                    return new UserNotFoundException("Trainer not found: " + username);
+                });
+    }
 
-        Trainer existing = trainerDao.getById(id);
-
-        if (existing == null) {
-            throw new UserNotFoundException(id);
-        }
-
-        validate(updated);
-
+    public Trainer update(String username, Trainer updated, String specializationName) {
+        Trainer existing = findByUsername(username);
         existing.setFirstName(updated.getFirstName());
         existing.setLastName(updated.getLastName());
-        existing.setSpecialization(updated.getSpecialization());
-
-        trainerDao.save(id, existing);
-
-        return existing;
-    }
-
-    public Trainer getTrainerById(Long id) {
-
-        Trainer trainer = trainerDao.getById(id);
-
-        if (trainer == null) {
-            throw new UserNotFoundException(id);
+        if (specializationName != null) {
+            TrainingType trainingType = trainingTypeRepository.findByTrainingTypeName(specializationName)
+                    .orElseThrow(() -> new TrainingTypeNotFoundException(specializationName));
+            existing.setSpecialization(trainingType);
         }
-
-        return trainer;
-    }
-    public void delete(Long id) {
-
-        Trainer trainee = trainerDao.getById(id);
-
-        if (trainee == null) {
-            throw new UserNotFoundException(id);
-        }
-
-        trainerDao.delete(id);
+        Trainer saved = trainerRepository.save(existing);
+        log.info("Updated trainer: {}", username);
+        return saved;
     }
 
+    public void activate(String username) {
+        Trainer trainer = findByUsername(username);
+        trainer.setActive(true);
+        trainerRepository.save(trainer);
+        log.info("Activated trainer: {}", username);
+    }
+
+    public void deactivate(String username) {
+        Trainer trainer = findByUsername(username);
+        trainer.setActive(false);
+        trainerRepository.save(trainer);
+        log.info("Deactivated trainer: {}", username);
+    }
+
+    public void changePassword(String username, String newRawPassword) {
+        Trainer trainer = findByUsername(username);
+        trainer.setPassword(passwordEncoder.encode(newRawPassword));
+        trainerRepository.save(trainer);
+        log.info("Password changed for trainer: {}", username);
+    }
+
+    @Transactional(readOnly = true)
     public List<Trainer> findAll() {
-        return trainerDao.findAll();
-    }
-
-    private void validate(Trainer trainer) {
-
-        if (StringUtils.isBlank(trainer.getFirstName())) {
-            throw new IllegalArgumentException("First name cannot be null or blank");
-        }
-
-        if (StringUtils.isBlank(trainer.getLastName())) {
-            throw new IllegalArgumentException("Last name cannot be null or blank");
-        }
+        return trainerRepository.findAll();
     }
 }

@@ -1,9 +1,7 @@
 package com.epam.training.util;
 
-import com.epam.training.dao.TraineeDao;
-import com.epam.training.dao.TrainerDao;
-import com.epam.training.model.Trainee;
-import com.epam.training.model.Trainer;
+import com.epam.training.repository.TraineeRepository;
+import com.epam.training.repository.TrainerRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -13,21 +11,21 @@ import java.util.stream.Stream;
 @Component
 public class UsernameGenerator {
 
-    private final TraineeDao traineeDao;
-    private final TrainerDao trainerDao;
+    private final TraineeRepository traineeRepository;
+    private final TrainerRepository trainerRepository;
 
-    public UsernameGenerator(TraineeDao traineeDao,
-                             TrainerDao trainerDao) {
-        this.traineeDao = traineeDao;
-        this.trainerDao = trainerDao;
+    public UsernameGenerator(TraineeRepository traineeRepository,
+                             TrainerRepository trainerRepository) {
+        this.traineeRepository = traineeRepository;
+        this.trainerRepository = trainerRepository;
     }
 
     public String generate(String firstName, String lastName) {
 
         Set<String> existingUsernames =
                 Stream.concat(
-                        traineeDao.findAll().stream().map(Trainee::getUsername),
-                        trainerDao.findAll().stream().map(Trainer::getUsername)
+                        traineeRepository.findAll().stream().map(t -> t.getUsername()),
+                        trainerRepository.findAll().stream().map(t -> t.getUsername())
                 ).collect(Collectors.toSet());
 
         String base = firstName.toLowerCase() + "." + lastName.toLowerCase();

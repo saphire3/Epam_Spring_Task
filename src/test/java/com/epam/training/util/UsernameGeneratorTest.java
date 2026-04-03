@@ -1,8 +1,8 @@
 package com.epam.training.util;
 
-import com.epam.training.dao.TraineeDao;
-import com.epam.training.dao.TrainerDao;
 import com.epam.training.model.Trainee;
+import com.epam.training.repository.TraineeRepository;
+import com.epam.training.repository.TrainerRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,17 +12,16 @@ import static org.mockito.Mockito.*;
 
 class UsernameGeneratorTest {
 
-    private final TraineeDao traineeDao = mock(TraineeDao.class);
-    private final TrainerDao trainerDao = mock(TrainerDao.class);
+    private final TraineeRepository traineeRepository = mock(TraineeRepository.class);
+    private final TrainerRepository trainerRepository = mock(TrainerRepository.class);
 
     private final UsernameGenerator generator =
-            new UsernameGenerator(traineeDao, trainerDao);
+            new UsernameGenerator(traineeRepository, trainerRepository);
 
     @Test
     void shouldGenerateSimpleUsername() {
-
-        when(traineeDao.findAll()).thenReturn(List.of());
-        when(trainerDao.findAll()).thenReturn(List.of());
+        when(traineeRepository.findAll()).thenReturn(List.of());
+        when(trainerRepository.findAll()).thenReturn(List.of());
 
         String result = generator.generate("John", "Smith");
 
@@ -31,15 +30,28 @@ class UsernameGeneratorTest {
 
     @Test
     void shouldAddSuffixIfDuplicateExists() {
-
         Trainee existing = new Trainee();
         existing.setUsername("john.smith");
 
-        when(traineeDao.findAll()).thenReturn(List.of(existing));
-        when(trainerDao.findAll()).thenReturn(List.of());
+        when(traineeRepository.findAll()).thenReturn(List.of(existing));
+        when(trainerRepository.findAll()).thenReturn(List.of());
 
         String result = generator.generate("John", "Smith");
 
         assertEquals("john.smith1", result);
+    }
+
+    @Test
+    void shouldAddIncrementingSuffix() {
+        Trainee e1 = new Trainee();
+        e1.setUsername("john.smith");
+        Trainee e2 = new Trainee();
+        e2.setUsername("john.smith1");
+
+        when(traineeRepository.findAll()).thenReturn(List.of(e1, e2));
+        when(trainerRepository.findAll()).thenReturn(List.of());
+
+        String result = generator.generate("John", "Smith");
+        assertEquals("john.smith2", result);
     }
 }
