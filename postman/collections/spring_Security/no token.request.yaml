@@ -1,0 +1,5 @@
+$kind: http-request
+name: no token
+url: http://localhost:8080/api/trainees/john.doe1
+method: GET
+order: 3387063605295871

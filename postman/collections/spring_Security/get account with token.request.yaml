@@ -1,0 +1,5 @@
+$kind: http-request
+name: get account with token
+url: ""
+method: GET
+order: 4113957635146979

@@ -1,0 +1,12 @@
+$kind: http-request
+name: Login + Get JWT
+url: http://localhost:8080/api/auth/login
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "username": "john.doe1",
+        "password": "ZhKaHp3sCO"
+    }
+order: 3202734025391230

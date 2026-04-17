@@ -1,0 +1,5 @@
+$kind: http-request
+name: logout with token
+url: ""
+method: POST
+order: 4041579458131613
