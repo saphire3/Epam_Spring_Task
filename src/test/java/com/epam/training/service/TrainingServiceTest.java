@@ -1,8 +1,8 @@
 package com.epam.training.service;
 
-import com.epam.training.dao.TrainingDao;
 import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.Training;
+import com.epam.training.repository.TrainingRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,48 +18,42 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class TrainingServiceTest {
 
-    @Mock
-    private TrainingDao trainingDao;
-
-    @InjectMocks
-    private TrainingService service;
+    @Mock private TrainingRepository trainingRepository;
+    @InjectMocks private TrainingService service;
 
     @Test
     void shouldCreateTraining() {
-
         Training training = new Training();
-
+        when(trainingRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
         Training result = service.create(training);
-
-        assertNotNull(result.getId());
-        verify(trainingDao).save(anyLong(), any());
+        assertNotNull(result);
+        verify(trainingRepository).save(any());
     }
 
     @Test
     void shouldFindTraining() {
-
         Training training = new Training();
         training.setId(1L);
-
-        when(trainingDao.getById(1L)).thenReturn(training);
-
+        when(trainingRepository.findById(1L)).thenReturn(Optional.of(training));
         assertNotNull(service.getTrainingById(1L));
     }
 
     @Test
     void shouldThrowExceptionWhenTrainingNotFound() {
-
-        when(trainingDao.getById(1L)).thenReturn(null);
-
-        assertThrows(UserNotFoundException.class,
-                () -> service.getTrainingById(1L));
+        when(trainingRepository.findById(1L)).thenReturn(Optional.empty());
+        assertThrows(UserNotFoundException.class, () -> service.getTrainingById(1L));
     }
 
     @Test
     void shouldReturnAllTrainings() {
-
-        when(trainingDao.findAll()).thenReturn(List.of(new Training()));
-
+        when(trainingRepository.findAll()).thenReturn(List.of(new Training()));
         assertEquals(1, service.findAll().size());
+    }
+
+    @Test
+    void shouldDeleteTraining() {
+        when(trainingRepository.existsById(1L)).thenReturn(true);
+        service.delete(1L);
+        verify(trainingRepository).deleteById(1L);
     }
 }

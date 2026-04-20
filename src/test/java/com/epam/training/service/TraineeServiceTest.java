@@ -1,8 +1,8 @@
 package com.epam.training.service;
 
-import com.epam.training.dao.TraineeDao;
 import com.epam.training.exception.UserNotFoundException;
 import com.epam.training.model.Trainee;
+import com.epam.training.repository.TraineeRepository;
 import com.epam.training.util.PasswordGenerator;
 import com.epam.training.util.UsernameGenerator;
 import org.junit.jupiter.api.Test;
@@ -11,45 +11,38 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class TraineeServiceTest {
 
-    @Mock
-    private TraineeDao traineeDao;
-
-    @Mock
-    private UsernameGenerator usernameGenerator;
-
-    @Mock
-    private PasswordGenerator passwordGenerator;
-
-    @InjectMocks
-    private TraineeService service;
+    @Mock private TraineeRepository traineeRepository;
+    @Mock private UsernameGenerator usernameGenerator;
+    @Mock private PasswordGenerator passwordGenerator;
+    @InjectMocks private TraineeService service;
 
     @Test
     void shouldCreateTrainee() {
-
         Trainee trainee = new Trainee();
         trainee.setFirstName("John");
         trainee.setLastName("Smith");
 
-        when(usernameGenerator.generate(any(), any()))
-                .thenReturn("john.smith");
-        when(passwordGenerator.generate())
-                .thenReturn("randomPass");
+        when(usernameGenerator.generate(any(), any())).thenReturn("john.smith");
+        when(passwordGenerator.generate()).thenReturn("randomPass");
+        when(traineeRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         Trainee result = service.create(trainee);
 
         assertEquals("john.smith", result.getUsername());
-        verify(traineeDao).save(anyLong(), any());
+        verify(traineeRepository).save(any());
     }
 
     @Test
     void shouldUpdateTrainee() {
-
         Trainee existing = new Trainee();
         existing.setId(1L);
         existing.setFirstName("Old");
@@ -59,48 +52,48 @@ class TraineeServiceTest {
         updated.setFirstName("New");
         updated.setLastName("Name");
 
-        when(traineeDao.getById(1L)).thenReturn(existing);
+        when(traineeRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(traineeRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
 
         Trainee result = service.update(1L, updated);
 
         assertEquals("New", result.getFirstName());
-        verify(traineeDao).save(eq(1L), any());
+        verify(traineeRepository).save(any());
     }
 
     @Test
     void shouldThrowExceptionWhenTraineeNotFound() {
-
-        when(traineeDao.getById(1L)).thenReturn(null);
-
+        when(traineeRepository.findById(1L)).thenReturn(Optional.empty());
         Trainee updated = new Trainee();
         updated.setFirstName("New");
         updated.setLastName("Name");
-
-        assertThrows(UserNotFoundException.class,
-                () -> service.update(1L, updated));
+        assertThrows(UserNotFoundException.class, () -> service.update(1L, updated));
     }
 
     @Test
     void shouldFindTrainee() {
-
         Trainee trainee = new Trainee();
         trainee.setId(1L);
-
-        when(traineeDao.getById(1L)).thenReturn(trainee);
-
+        when(traineeRepository.findById(1L)).thenReturn(Optional.of(trainee));
         assertNotNull(service.getTraineeById(1L));
     }
 
     @Test
+    void shouldReturnAllTrainees() {
+        when(traineeRepository.findAll()).thenReturn(List.of(new Trainee()));
+        assertEquals(1, service.findAll().size());
+    }
+
+    @Test
     void shouldDeleteTrainee() {
-
-        Trainee trainee = new Trainee();
-        trainee.setId(1L);
-
-        when(traineeDao.getById(1L)).thenReturn(trainee);
-
+        when(traineeRepository.existsById(1L)).thenReturn(true);
         service.delete(1L);
+        verify(traineeRepository).deleteById(1L);
+    }
 
-        verify(traineeDao).delete(1L);
+    @Test
+    void shouldThrowWhenDeletingNonExistentTrainee() {
+        when(traineeRepository.existsById(1L)).thenReturn(false);
+        assertThrows(UserNotFoundException.class, () -> service.delete(1L));
     }
 }

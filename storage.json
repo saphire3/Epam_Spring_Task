@@ -240,12 +240,22 @@
       "address" : null,
       "active" : true
     },
-    "27" : {
-      "id" : 27,
+    "26" : {
+      "id" : 26,
       "firstName" : "John",
       "lastName" : "Smith",
       "username" : "john.smith24",
-      "password" : "kPAYLuxBtD",
+      "password" : "OpnswfE9ri",
+      "dateOfBirth" : null,
+      "address" : null,
+      "active" : true
+    },
+    "28" : {
+      "id" : 28,
+      "firstName" : "John",
+      "lastName" : "Smith",
+      "username" : "john.smith25",
+      "password" : "qk4md9Yz0O",
       "dateOfBirth" : null,
       "address" : null,
       "active" : true
@@ -314,15 +324,6 @@
       "username" : "anna.brown5",
       "password" : "iZF7VZdDqn",
       "specialization" : "Fitness",
-      "active" : true
-    },
-    "200" : {
-      "id" : 200,
-      "firstName" : "Initial",
-      "lastName" : "Trainer",
-      "username" : "Initial.Trainer",
-      "password" : "initPass2",
-      "specialization" : "Yoga",
       "active" : true
     },
     "8" : {
@@ -683,6 +684,33 @@
       "username" : "anna.brown45",
       "password" : "SVS21DP4nw",
       "specialization" : "Fitness",
+      "active" : true
+    },
+    "48" : {
+      "id" : 48,
+      "firstName" : "Anna",
+      "lastName" : "Brown",
+      "username" : "anna.brown46",
+      "password" : "kBLSEuevoG",
+      "specialization" : "Fitness",
+      "active" : true
+    },
+    "49" : {
+      "id" : 49,
+      "firstName" : "Anna",
+      "lastName" : "Brown",
+      "username" : "anna.brown47",
+      "password" : "DzgSulitm8",
+      "specialization" : "Fitness",
+      "active" : true
+    },
+    "200" : {
+      "id" : 200,
+      "firstName" : "Initial",
+      "lastName" : "Trainer",
+      "username" : "Initial.Trainer",
+      "password" : "initPass2",
+      "specialization" : "Yoga",
       "active" : true
     }
   },
@@ -1099,6 +1127,24 @@
       "trainingName" : "Cardio",
       "trainingType" : null,
       "trainingDate" : [ 2026, 4, 3 ],
+      "duration" : 60
+    },
+    "47" : {
+      "id" : 47,
+      "traineeId" : 27,
+      "trainerId" : 48,
+      "trainingName" : "Cardio",
+      "trainingType" : null,
+      "trainingDate" : [ 2026, 4, 20 ],
+      "duration" : 60
+    },
+    "48" : {
+      "id" : 48,
+      "traineeId" : 27,
+      "trainerId" : 48,
+      "trainingName" : "Cardio",
+      "trainingType" : null,
+      "trainingDate" : [ 2026, 4, 20 ],
       "duration" : 60
     }
   }

@@ -1,103 +1,69 @@
 package com.epam.training.service;
 
-import com.epam.training.dao.TrainerDao;
 import com.epam.training.exception.UserNotFoundException;
-import com.epam.training.model.Trainee;
 import com.epam.training.model.Trainer;
+import com.epam.training.repository.TrainerRepository;
 import com.epam.training.util.PasswordGenerator;
 import com.epam.training.util.UsernameGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TrainerService {
 
-    private final TrainerDao trainerDao;
+    private final TrainerRepository trainerRepository;
     private final UsernameGenerator usernameGenerator;
     private final PasswordGenerator passwordGenerator;
 
-    public TrainerService(TrainerDao trainerDao,
+    public TrainerService(TrainerRepository trainerRepository,
                           UsernameGenerator usernameGenerator,
                           PasswordGenerator passwordGenerator) {
-        this.trainerDao = trainerDao;
+        this.trainerRepository = trainerRepository;
         this.usernameGenerator = usernameGenerator;
         this.passwordGenerator = passwordGenerator;
     }
 
     public Trainer create(Trainer trainer) {
-
         validate(trainer);
-
-        String username = usernameGenerator.generate(
-                trainer.getFirstName(),
-                trainer.getLastName()
-        );
-
-        trainer.setUsername(username);
+        trainer.setUsername(usernameGenerator.generate(trainer.getFirstName(), trainer.getLastName()));
         trainer.setPassword(passwordGenerator.generate());
-
-        Long id = (long) (trainerDao.findAll().size() + 1);
-        trainer.setId(id);
-
-        trainerDao.save(id, trainer);
-
-        return trainer;
+        return trainerRepository.save(trainer);
     }
 
     public Trainer update(Long id, Trainer updated) {
-
-        Trainer existing = trainerDao.getById(id);
-
-        if (existing == null) {
-            throw new UserNotFoundException(id);
-        }
-
+        Trainer existing = trainerRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
         validate(updated);
-
         existing.setFirstName(updated.getFirstName());
         existing.setLastName(updated.getLastName());
         existing.setSpecialization(updated.getSpecialization());
-
-        trainerDao.save(id, existing);
-
-        return existing;
+        return trainerRepository.save(existing);
     }
 
+    @Transactional(readOnly = true)
     public Trainer getTrainerById(Long id) {
-
-        Trainer trainer = trainerDao.getById(id);
-
-        if (trainer == null) {
-            throw new UserNotFoundException(id);
-        }
-
-        return trainer;
+        return trainerRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
+
     public void delete(Long id) {
-
-        Trainer trainee = trainerDao.getById(id);
-
-        if (trainee == null) {
-            throw new UserNotFoundException(id);
-        }
-
-        trainerDao.delete(id);
+        if (!trainerRepository.existsById(id)) throw new UserNotFoundException(id);
+        trainerRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Trainer> findAll() {
-        return trainerDao.findAll();
+        return trainerRepository.findAll();
     }
 
     private void validate(Trainer trainer) {
-
-        if (StringUtils.isBlank(trainer.getFirstName())) {
+        if (StringUtils.isBlank(trainer.getFirstName()))
             throw new IllegalArgumentException("First name cannot be null or blank");
-        }
-
-        if (StringUtils.isBlank(trainer.getLastName())) {
+        if (StringUtils.isBlank(trainer.getLastName()))
             throw new IllegalArgumentException("Last name cannot be null or blank");
-        }
     }
 }
