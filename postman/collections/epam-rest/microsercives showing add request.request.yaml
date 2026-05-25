@@ -1,0 +1,21 @@
+$kind: http-request
+name: microsercives showing add request
+url: localhost:8080/api/trainings
+method: POST
+body:
+  type: json
+  content: |2
+     {
+        "trainingName": "Morning Yoga",
+        "trainingDate": "2025-03-15",
+        "trainingType": "YOGA",
+        "duration": 60, 
+        "trainerId": 1,
+        "traineeId": 1
+      } 
+auth:
+  type: basic
+  credentials:
+    username: admin
+    password: admin123
+order: 4503599615197484
