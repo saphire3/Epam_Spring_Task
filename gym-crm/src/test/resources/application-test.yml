@@ -1,0 +1,17 @@
+spring:
+  activemq:
+    broker-url: vm://localhost?broker.persistent=false
+    user: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+eureka:
+  client:
+    enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.epam: INFO
