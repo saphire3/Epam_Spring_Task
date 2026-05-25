@@ -1,10 +1,4 @@
 $kind: http-request
-name: New Request
-url: http://localhost:8080/api/trainings/1
-method: DELETE
-auth:
-  type: basic
-  credentials:
-    username: admin
-    password: admin123
-order: 4503599626521926
+url: ""
+method: GET
+order: 4503599627184980
