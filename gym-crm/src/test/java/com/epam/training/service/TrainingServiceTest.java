@@ -1,7 +1,9 @@
 package com.epam.training.service;
 
 import com.epam.training.exception.UserNotFoundException;
+import com.epam.training.messaging.WorkloadMessageProducer;
 import com.epam.training.model.Training;
+import com.epam.training.repository.TrainerRepository;
 import com.epam.training.repository.TrainingRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainingServiceTest {
 
     @Mock private TrainingRepository trainingRepository;
+    @Mock private TrainerRepository trainerRepository;
+    @Mock private WorkloadMessageProducer workloadMessageProducer;
     @InjectMocks private TrainingService service;
 
     @Test
@@ -52,7 +56,9 @@ class TrainingServiceTest {
 
     @Test
     void shouldDeleteTraining() {
-        when(trainingRepository.existsById(1L)).thenReturn(true);
+        Training training = new Training();
+        training.setId(1L);
+        when(trainingRepository.findById(1L)).thenReturn(Optional.of(training));
         service.delete(1L);
         verify(trainingRepository).deleteById(1L);
     }

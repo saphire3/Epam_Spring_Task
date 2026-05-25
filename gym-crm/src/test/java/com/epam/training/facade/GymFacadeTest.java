@@ -1,10 +1,9 @@
 package com.epam.training.facade;
 
-import com.epam.training.client.TrainerWorkloadClient;
+import com.epam.training.messaging.WorkloadMessageProducer;
 import com.epam.training.repository.TraineeRepository;
 import com.epam.training.repository.TrainerRepository;
 import com.epam.training.repository.TrainingRepository;
-import com.epam.training.security.JwtTokenProvider;
 import com.epam.training.service.TraineeService;
 import com.epam.training.service.TrainerService;
 import com.epam.training.service.TrainingService;
@@ -22,15 +21,14 @@ class GymFacadeTest {
         TraineeRepository traineeRepo = mock(TraineeRepository.class);
         TrainerRepository trainerRepo = mock(TrainerRepository.class);
         TrainingRepository trainingRepo = mock(TrainingRepository.class);
-        TrainerWorkloadClient workloadClient = mock(TrainerWorkloadClient.class);
-        JwtTokenProvider jwtTokenProvider = mock(JwtTokenProvider.class);
+        WorkloadMessageProducer workloadProducer = mock(WorkloadMessageProducer.class);
 
         UsernameGenerator usernameGenerator = new UsernameGenerator(traineeRepo, trainerRepo);
         PasswordGenerator passwordGenerator = new PasswordGenerator();
 
         TraineeService traineeService = new TraineeService(traineeRepo, usernameGenerator, passwordGenerator);
         TrainerService trainerService = new TrainerService(trainerRepo, usernameGenerator, passwordGenerator);
-        TrainingService trainingService = new TrainingService(trainingRepo, trainerRepo, workloadClient, jwtTokenProvider);
+        TrainingService trainingService = new TrainingService(trainingRepo, trainerRepo, workloadProducer);
 
         GymFacade facade = new GymFacade(traineeService, trainerService, trainingService);
 

@@ -1,17 +1,15 @@
 package com.epam.training.service;
 
-import com.epam.training.client.TrainerWorkloadClient;
 import com.epam.training.dto.ActionType;
 import com.epam.training.dto.TrainerWorkloadRequest;
 import com.epam.training.exception.UserNotFoundException;
+import com.epam.training.messaging.WorkloadMessageProducer;
 import com.epam.training.model.Trainer;
 import com.epam.training.model.Training;
 import com.epam.training.repository.TrainerRepository;
 import com.epam.training.repository.TrainingRepository;
-import com.epam.training.security.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,17 +23,14 @@ public class TrainingService {
 
     private final TrainingRepository trainingRepository;
     private final TrainerRepository trainerRepository;
-    private final TrainerWorkloadClient workloadClient;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final WorkloadMessageProducer workloadMessageProducer;
 
     public TrainingService(TrainingRepository trainingRepository,
                            TrainerRepository trainerRepository,
-                           TrainerWorkloadClient workloadClient,
-                           JwtTokenProvider jwtTokenProvider) {
+                           WorkloadMessageProducer workloadMessageProducer) {
         this.trainingRepository = trainingRepository;
         this.trainerRepository = trainerRepository;
-        this.workloadClient = workloadClient;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.workloadMessageProducer = workloadMessageProducer;
     }
 
     public Training create(Training training) {
@@ -78,10 +73,6 @@ public class TrainingService {
                 training.getDuration(),
                 actionType
         );
-        String token = "Bearer " + jwtTokenProvider.generateServiceToken();
-        String transactionId = MDC.get("transactionId");
-        log.info("[OPERATION] Notifying workload service: trainer={}, action={}, transactionId={}",
-                trainer.getUsername(), actionType, transactionId);
-        workloadClient.updateWorkload(token, transactionId != null ? transactionId : "", request);
+        workloadMessageProducer.sendWorkloadUpdate(request);
     }
 }
