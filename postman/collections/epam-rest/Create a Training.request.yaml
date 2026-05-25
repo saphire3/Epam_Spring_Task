@@ -1,0 +1,20 @@
+$kind: http-request
+name: Create a Training
+url: http://localhost:8080/api/trainings
+method: POST
+body:
+  type: json
+  content: |
+    {
+        "trainerId": 1,
+        "traineeId": 1,
+        "trainingName": "Morning Yoga",
+        "trainingDate": "2024-06-01",
+        "duration": 60
+      } 
+auth:
+  type: basic
+  credentials:
+    username: admin
+    password: admin123
+order: 4503599625848710
