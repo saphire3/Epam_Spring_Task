@@ -22,12 +22,12 @@ public class TrainerController {
         return trainerService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")//
     public Trainer getById(@PathVariable Long id) {
         return trainerService.getTrainerById(id);
     }
 
-    @PostMapping
+    @PostMapping//
     @ResponseStatus(HttpStatus.CREATED)
     public Trainer create(@RequestBody Trainer trainer) {
         return trainerService.create(trainer);
