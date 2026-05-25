@@ -110,6 +110,7 @@ public class WorkloadIntegrationSteps {
     public void workloadJmsMessagePublished() {
         ArgumentCaptor<TrainerWorkloadRequest> captor = ArgumentCaptor.forClass(TrainerWorkloadRequest.class);
         verify(workloadMessageProducer).sendWorkloadUpdate(captor.capture());
+        // this is how the integration is asserted without needing a real running broker
         ctx.setCapturedJmsMessage(captor.getValue());
     }
 
