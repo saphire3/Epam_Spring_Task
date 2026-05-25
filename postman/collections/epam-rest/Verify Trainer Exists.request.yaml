@@ -1,10 +1,10 @@
 $kind: http-request
-name: Delete the training
-url: localhost:8080/api/trainings/2
-method: DELETE
+name: Verify Trainer Exists
+url: http://localhost:8080/api/trainers
+method: GET
 auth:
   type: basic
   credentials:
     username: admin
     password: admin123
-order: 21000
+order: 27000

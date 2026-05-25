@@ -49,7 +49,11 @@ public class WorkloadMessageListener {
             log.error("[DLQ] Failed to read dead letter message properties", e);
         }
     }
-
+//"Every incoming JMS message is validated before processing. If trainerUsername is blank, trainingDate is null,
+// actionType is null, or duration is ≤ 0, an IllegalArgumentException is thrown
+//  ▎ immediately and the message is rejected with an error log — it never reaches the service layer.
+//▎ On the model side, @NotBlank guards username, firstName, lastName; @Min(1)/@Max(12) guards month;
+// @Min(0) guards duration — these are declared on TrainerSummary, YearSummary, and MonthSummary.
     private void validate(TrainerWorkloadRequest request) {
         if (request.getTrainerUsername() == null || request.getTrainerUsername().isBlank()) {
             throw new IllegalArgumentException("Workload message missing required field: trainerUsername");

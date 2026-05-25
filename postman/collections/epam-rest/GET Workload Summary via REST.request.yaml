@@ -1,0 +1,7 @@
+$kind: http-request
+name: GET Workload Summary via REST
+url: http://localhost:8081/api/trainer-workload/john.doe
+method: GET
+headers:
+  X-Transaction-Id: demo-tx-001
+order: 4117023565023586

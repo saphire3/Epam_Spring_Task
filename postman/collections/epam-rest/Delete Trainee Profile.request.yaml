@@ -4,4 +4,4 @@ url: http://localhost:8080/api/trainees/john.doe?password=L6zKn2leYR
 method: DELETE
 queryParams:
   password: L6zKn2leYR
-order: 4434817564131893
+order: 7000

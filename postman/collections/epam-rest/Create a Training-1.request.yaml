@@ -7,14 +7,14 @@ body:
   content: |
     {
         "trainerId": 1,
-        "traineeId": 1,
         "trainingName": "Morning Yoga",
-        "trainingDate": "2024-06-01",
+        "trainingType": "YOGA",
+        "trainingDate": "2024-03-15",
         "duration": 60
-      } 
+      }
 auth:
   type: basic
   credentials:
     username: admin
     password: admin123
-order: 24000
+order: 28000

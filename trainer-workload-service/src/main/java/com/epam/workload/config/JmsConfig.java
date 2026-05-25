@@ -49,6 +49,11 @@ public class JmsConfig {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");
+        // map the gym-crm class name to this service's equivalent DTO
+        converter.setTypeIdMappings(java.util.Map.of(
+                "com.epam.training.dto.TrainerWorkloadRequest",
+                com.epam.workload.dto.TrainerWorkloadRequest.class
+        ));
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         converter.setObjectMapper(mapper);

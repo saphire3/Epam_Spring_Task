@@ -2,4 +2,4 @@ $kind: http-request
 name: Add Training
 url: http://localhost:8080/api/trainings
 method: POST
-order: 4503599622030962
+order: 22000

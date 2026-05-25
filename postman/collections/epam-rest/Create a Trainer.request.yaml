@@ -1,0 +1,21 @@
+$kind: http-request
+name: Create a Trainer
+url: http://localhost:8080/api/trainers
+method: POST
+body:
+  type: json
+  content: |
+    {
+        "firstName": "John",
+        "lastName": "Doe",
+        "username": "john.doe",
+        "password": "pass123",
+        "isActive": true,
+        "specialization": "YOGA"
+      }
+auth:
+  type: basic
+  credentials:
+    username: admin
+    password: admin123
+order: 26000

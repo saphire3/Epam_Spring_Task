@@ -1,5 +1,5 @@
 $kind: http-request
-name: Create a Training
+name: Add Another Training
 url: http://localhost:8080/api/trainings
 method: POST
 body:
@@ -7,14 +7,14 @@ body:
   content: |
     {
         "trainerId": 1,
-        "traineeId": 1,
-        "trainingName": "Morning Yoga",
-        "trainingDate": "2024-06-01",
-        "duration": 60
-      } 
+        "trainingName": "Evening Yoga",
+        "trainingType": "YOGA",
+        "trainingDate": "2024-03-22",
+        "duration": 90
+      }
 auth:
   type: basic
   credentials:
     username: admin
     password: admin123
-order: 24000
+order: 4450364748102884
