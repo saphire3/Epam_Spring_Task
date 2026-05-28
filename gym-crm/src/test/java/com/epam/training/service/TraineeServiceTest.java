@@ -96,4 +96,26 @@ class TraineeServiceTest {
         when(traineeRepository.existsById(1L)).thenReturn(false);
         assertThrows(UserNotFoundException.class, () -> service.delete(1L));
     }
+
+    @Test
+    void shouldThrowWhenCreatingTraineeWithBlankFirstName() {
+        Trainee trainee = new Trainee();
+        trainee.setFirstName("  ");
+        trainee.setLastName("Smith");
+        assertThrows(IllegalArgumentException.class, () -> service.create(trainee));
+    }
+
+    @Test
+    void shouldThrowWhenCreatingTraineeWithNullLastName() {
+        Trainee trainee = new Trainee();
+        trainee.setFirstName("John");
+        trainee.setLastName(null);
+        assertThrows(IllegalArgumentException.class, () -> service.create(trainee));
+    }
+
+    @Test
+    void shouldThrowWhenTraineeNotFoundById() {
+        when(traineeRepository.findById(99L)).thenReturn(Optional.empty());
+        assertThrows(UserNotFoundException.class, () -> service.getTraineeById(99L));
+    }
 }
