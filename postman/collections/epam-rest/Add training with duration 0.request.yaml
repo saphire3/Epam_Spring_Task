@@ -1,0 +1,5 @@
+$kind: http-request
+name: Add training with duration 0
+url: ""
+method: GET
+order: 4503598918769307

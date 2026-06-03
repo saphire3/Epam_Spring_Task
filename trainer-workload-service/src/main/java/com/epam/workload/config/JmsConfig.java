@@ -1,6 +1,8 @@
 package com.epam.workload.config;
 
+import com.epam.workload.dto.TrainerWorkloadRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
@@ -49,6 +51,7 @@ public class JmsConfig {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");
+        converter.setTypeIdMappings(Map.of("TrainerWorkloadRequest", TrainerWorkloadRequest.class));
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         converter.setObjectMapper(mapper);

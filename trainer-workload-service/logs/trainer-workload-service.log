@@ -1,240 +1,668 @@
-2026-05-25 17:54:50 [main] [txId=] INFO  c.e.w.TrainerWorkloadApplication - Starting TrainerWorkloadApplication using Java 17.0.18 with PID 3434 (/Users/mariagevorgyan/Documents/Epam_Task1_Spring/trainer-workload-service/target/classes started by mariagevorgyan in /Users/mariagevorgyan/Documents/Epam_Task1_Spring/trainer-workload-service)
-2026-05-25 17:54:50 [main] [txId=] DEBUG c.e.w.TrainerWorkloadApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
-2026-05-25 17:54:50 [main] [txId=] INFO  c.e.w.TrainerWorkloadApplication - No active profile set, falling back to 1 default profile: "default"
-2026-05-25 17:54:50 [main] [txId=] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=edcc1f8f-7b7e-3326-988c-f319dee77adb
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$544/0x0000000601363388] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.cloud.loadbalancer-org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerClientFactory' of type [org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'blockingLoadBalancerClient' of type [org.springframework.cloud.loadbalancer.blocking.client.BlockingLoadBalancerClient] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerServiceInstanceCookieTransformer' of type [org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'xForwarderHeadersTransformer' of type [org.springframework.cloud.loadbalancer.blocking.XForwardedHeadersTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerRequestFactory' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerRequestFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 17:54:50 [main] [txId=] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-05-25 17:54:50 [main] [txId=] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-05-25 17:54:50 [main] [txId=] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-05-25 17:54:50 [main] [txId=] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2026-05-25 17:54:50 [main] [txId=] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2026-05-25 17:54:50 [main] [txId=] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 376 ms
-2026-05-25 17:54:50 [main] [txId=] DEBUG c.e.w.l.TransactionLoggingFilter - Filter 'transactionLoggingFilter' configured for use
-2026-05-25 17:54:50 [main] [txId=] DEBUG c.e.workload.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+2026-06-03 00:01:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:06:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:11:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:16:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:21:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:26:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:31:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:36:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:41:39 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:48:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:53:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 00:58:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:03:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:08:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:13:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:18:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:23:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:28:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:33:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:38:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:43:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:48:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:53:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 01:58:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:03:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:08:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:13:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:18:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:23:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:28:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:33:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:38:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:43:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:48:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:53:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 02:58:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:03:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:08:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:13:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:18:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:23:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:28:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:33:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:38:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:43:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:48:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:53:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 03:58:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:03:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:08:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:13:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:18:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:23:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:28:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:33:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:38:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:43:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:48:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:53:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 04:58:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:03:05 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:08:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:13:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:18:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:23:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:28:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:33:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:38:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:39:28 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - Starting TrainerWorkloadControllerTest using Java 17.0.18 with PID 69530 (started by mariagevorgyan in /Users/mariagevorgyan/Documents/Epam_Task1_Spring/trainer-workload-service)
+2026-06-03 05:39:28 [main] [txId=] DEBUG c.e.w.c.TrainerWorkloadControllerTest - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-06-03 05:39:28 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-06-03 05:39:29 [main] [txId=] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
 
-Using generated security password: 3bebc053-feaf-40f6-831f-a2762c5faeab
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-05-25 17:54:50 [main] [txId=] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
-2026-05-25 17:54:50 [main] [txId=] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@582dcd35, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e6bd263, org.springframework.security.web.context.SecurityContextHolderFilter@28e94c2, org.springframework.security.web.header.HeaderWriterFilter@69bc9584, org.springframework.web.filter.CorsFilter@394a6d2b, org.springframework.security.web.authentication.logout.LogoutFilter@563317c1, com.epam.workload.security.JwtAuthFilter@b5b9333, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@14d1737a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@482a58c7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@635ff2a5, org.springframework.security.web.session.SessionManagementFilter@3bd08435, org.springframework.security.web.access.ExceptionTranslationFilter@365cef67, org.springframework.security.web.access.intercept.AuthorizationFilter@77663cd7]
-2026-05-25 17:54:50 [main] [txId=] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
-2026-05-25 17:54:50 [main] [txId=] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2026-05-25 17:54:50 [main] [txId=] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
-2026-05-25 17:54:50 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
-2026-05-25 17:54:50 [main] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
-2026-05-25 17:54:51 [main] [txId=] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1779717291110 with initial instances count: 0
-2026-05-25 17:54:51 [main] [txId=] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application TRAINER-WORKLOAD-SERVICE with eureka with status UP
-2026-05-25 17:54:51 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1779717291111, current=UP, previous=STARTING]
-2026-05-25 17:54:51 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081: registering service...
-2026-05-25 17:54:51 [main] [txId=] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2026-05-25 17:54:51 [main] [txId=] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path ''
-2026-05-25 17:54:51 [main] [txId=] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
-2026-05-25 17:54:51 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081 - registration status: 204
-2026-05-25 17:54:51 [main] [txId=] INFO  c.e.w.TrainerWorkloadApplication - Started TrainerWorkloadApplication in 0.999 seconds (process running for 1.1)
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: false
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2026-05-25 17:55:21 [DiscoveryClient-CacheRefreshExecutor-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2026-05-25 17:56:33 [http-nio-8081-exec-1] [txId=] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-05-25 17:56:33 [http-nio-8081-exec-1] [txId=] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-05-25 17:56:33 [http-nio-8081-exec-1] [txId=] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-05-25 17:56:33 [http-nio-8081-exec-1] [txId=] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/actuator/info' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2026-05-25 17:56:33 [http-nio-8081-exec-1] [txId=] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/actuator/info' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
-2026-05-25 17:56:33 [http-nio-8081-exec-1] [txId=af0f48f8-4379-4382-bdc9-2e54889ecc20] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/actuator/info method=GET transactionId=af0f48f8-4379-4382-bdc9-2e54889ecc20
-2026-05-25 17:56:33 [http-nio-8081-exec-1] [txId=af0f48f8-4379-4382-bdc9-2e54889ecc20] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/actuator/info status=200 transactionId=af0f48f8-4379-4382-bdc9-2e54889ecc20
-2026-05-25 17:59:50 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2026-05-25 18:04:51 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2026-05-25 18:09:51 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2026-05-25 18:11:17 [http-nio-8081-exec-5] [txId=64384100-2bfa-4a9f-94be-b14283a4257a] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=64384100-2bfa-4a9f-94be-b14283a4257a
-2026-05-25 18:11:17 [http-nio-8081-exec-5] [txId=64384100-2bfa-4a9f-94be-b14283a4257a] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:11:17 [http-nio-8081-exec-5] [txId=64384100-2bfa-4a9f-94be-b14283a4257a] WARN  c.e.w.c.TrainerWorkloadController - No summary found for trainer 'jane.smith'
-2026-05-25 18:11:17 [http-nio-8081-exec-5] [txId=64384100-2bfa-4a9f-94be-b14283a4257a] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=404 transactionId=64384100-2bfa-4a9f-94be-b14283a4257a
-2026-05-25 18:14:29 [http-nio-8081-exec-7] [txId=78619885-f556-4d13-9ab7-c88dd5fd36f1] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=78619885-f556-4d13-9ab7-c88dd5fd36f1
-2026-05-25 18:14:29 [http-nio-8081-exec-7] [txId=78619885-f556-4d13-9ab7-c88dd5fd36f1] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:14:29 [http-nio-8081-exec-7] [txId=78619885-f556-4d13-9ab7-c88dd5fd36f1] WARN  c.e.w.c.TrainerWorkloadController - No summary found for trainer 'jane.smith'
-2026-05-25 18:14:29 [http-nio-8081-exec-7] [txId=78619885-f556-4d13-9ab7-c88dd5fd36f1] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=404 transactionId=78619885-f556-4d13-9ab7-c88dd5fd36f1
-2026-05-25 18:14:50 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2026-05-25 18:15:01 [http-nio-8081-exec-8] [txId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4
-2026-05-25 18:15:01 [http-nio-8081-exec-8] [txId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'jane.smith', action=ADD
-2026-05-25 18:15:01 [http-nio-8081-exec-8] [txId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'jane.smith' in 2025/3
-2026-05-25 18:15:01 [http-nio-8081-exec-8] [txId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'jane.smith', transactionId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4
-2026-05-25 18:15:01 [http-nio-8081-exec-8] [txId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=ed6813fd-35ba-42ad-bb44-470e5a2c24f4
-2026-05-25 18:15:49 [http-nio-8081-exec-10] [txId=663cb008-f0ac-4824-82c8-864569b4f43a] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=663cb008-f0ac-4824-82c8-864569b4f43a
-2026-05-25 18:15:49 [http-nio-8081-exec-10] [txId=663cb008-f0ac-4824-82c8-864569b4f43a] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:15:49 [http-nio-8081-exec-10] [txId=663cb008-f0ac-4824-82c8-864569b4f43a] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=663cb008-f0ac-4824-82c8-864569b4f43a
-2026-05-25 18:15:49 [http-nio-8081-exec-10] [txId=663cb008-f0ac-4824-82c8-864569b4f43a] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=663cb008-f0ac-4824-82c8-864569b4f43a
-2026-05-25 18:16:48 [http-nio-8081-exec-2] [txId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8
-2026-05-25 18:16:48 [http-nio-8081-exec-2] [txId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'jane.smith', action=DELETE
-2026-05-25 18:16:48 [http-nio-8081-exec-2] [txId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8] INFO  c.e.w.service.TrainerWorkloadService - Removed 60 minutes for trainer 'jane.smith' in 2025/3
-2026-05-25 18:16:48 [http-nio-8081-exec-2] [txId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'jane.smith', transactionId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8
-2026-05-25 18:16:48 [http-nio-8081-exec-2] [txId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=7cc7d62a-352a-4318-a8a4-f4e1a28df1d8
-2026-05-25 18:17:02 [http-nio-8081-exec-3] [txId=5d59c0ff-5a6b-4bf3-903b-aca404601a08] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=5d59c0ff-5a6b-4bf3-903b-aca404601a08
-2026-05-25 18:17:02 [http-nio-8081-exec-3] [txId=5d59c0ff-5a6b-4bf3-903b-aca404601a08] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:17:02 [http-nio-8081-exec-3] [txId=5d59c0ff-5a6b-4bf3-903b-aca404601a08] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=5d59c0ff-5a6b-4bf3-903b-aca404601a08
-2026-05-25 18:17:02 [http-nio-8081-exec-3] [txId=5d59c0ff-5a6b-4bf3-903b-aca404601a08] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=5d59c0ff-5a6b-4bf3-903b-aca404601a08
-2026-05-25 18:17:13 [http-nio-8081-exec-5] [txId=b2a79ea9-40d3-4dcd-b5d4-cf9317d4170f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=b2a79ea9-40d3-4dcd-b5d4-cf9317d4170f
-2026-05-25 18:17:13 [http-nio-8081-exec-5] [txId=b2a79ea9-40d3-4dcd-b5d4-cf9317d4170f] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:17:13 [http-nio-8081-exec-5] [txId=b2a79ea9-40d3-4dcd-b5d4-cf9317d4170f] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=b2a79ea9-40d3-4dcd-b5d4-cf9317d4170f
-2026-05-25 18:17:13 [http-nio-8081-exec-5] [txId=b2a79ea9-40d3-4dcd-b5d4-cf9317d4170f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=b2a79ea9-40d3-4dcd-b5d4-cf9317d4170f
-2026-05-25 18:17:14 [http-nio-8081-exec-6] [txId=6c5224b6-383b-4dd4-b31a-20ce63644969] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=6c5224b6-383b-4dd4-b31a-20ce63644969
-2026-05-25 18:17:14 [http-nio-8081-exec-6] [txId=6c5224b6-383b-4dd4-b31a-20ce63644969] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:17:14 [http-nio-8081-exec-6] [txId=6c5224b6-383b-4dd4-b31a-20ce63644969] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=6c5224b6-383b-4dd4-b31a-20ce63644969
-2026-05-25 18:17:14 [http-nio-8081-exec-6] [txId=6c5224b6-383b-4dd4-b31a-20ce63644969] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=6c5224b6-383b-4dd4-b31a-20ce63644969
-2026-05-25 18:17:29 [http-nio-8081-exec-7] [txId=6030e807-8528-4839-871f-6aa1c245198b] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=6030e807-8528-4839-871f-6aa1c245198b
-2026-05-25 18:17:29 [http-nio-8081-exec-7] [txId=6030e807-8528-4839-871f-6aa1c245198b] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'jane.smith', action=DELETE
-2026-05-25 18:17:29 [http-nio-8081-exec-7] [txId=6030e807-8528-4839-871f-6aa1c245198b] INFO  c.e.w.service.TrainerWorkloadService - Removed 60 minutes for trainer 'jane.smith' in 2025/3
-2026-05-25 18:17:29 [http-nio-8081-exec-7] [txId=6030e807-8528-4839-871f-6aa1c245198b] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'jane.smith', transactionId=6030e807-8528-4839-871f-6aa1c245198b
-2026-05-25 18:17:29 [http-nio-8081-exec-7] [txId=6030e807-8528-4839-871f-6aa1c245198b] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=6030e807-8528-4839-871f-6aa1c245198b
-2026-05-25 18:17:32 [http-nio-8081-exec-8] [txId=c6315b3e-a8f1-48a6-acf3-0d33d0da001e] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=c6315b3e-a8f1-48a6-acf3-0d33d0da001e
-2026-05-25 18:17:32 [http-nio-8081-exec-8] [txId=c6315b3e-a8f1-48a6-acf3-0d33d0da001e] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:17:32 [http-nio-8081-exec-8] [txId=c6315b3e-a8f1-48a6-acf3-0d33d0da001e] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=c6315b3e-a8f1-48a6-acf3-0d33d0da001e
-2026-05-25 18:17:32 [http-nio-8081-exec-8] [txId=c6315b3e-a8f1-48a6-acf3-0d33d0da001e] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=c6315b3e-a8f1-48a6-acf3-0d33d0da001e
-2026-05-25 18:18:10 [http-nio-8081-exec-9] [txId=82a51e45-2de2-426f-bee9-d32cafa03661] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=82a51e45-2de2-426f-bee9-d32cafa03661
-2026-05-25 18:18:10 [http-nio-8081-exec-9] [txId=82a51e45-2de2-426f-bee9-d32cafa03661] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:18:10 [http-nio-8081-exec-9] [txId=82a51e45-2de2-426f-bee9-d32cafa03661] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=82a51e45-2de2-426f-bee9-d32cafa03661
-2026-05-25 18:18:10 [http-nio-8081-exec-9] [txId=82a51e45-2de2-426f-bee9-d32cafa03661] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=82a51e45-2de2-426f-bee9-d32cafa03661
-2026-05-25 18:19:14 [http-nio-8081-exec-2] [txId=0614c604-3354-4902-b3a0-eed199bbfe91] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=0614c604-3354-4902-b3a0-eed199bbfe91
-2026-05-25 18:19:14 [http-nio-8081-exec-2] [txId=0614c604-3354-4902-b3a0-eed199bbfe91] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:19:14 [http-nio-8081-exec-2] [txId=0614c604-3354-4902-b3a0-eed199bbfe91] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=0614c604-3354-4902-b3a0-eed199bbfe91
-2026-05-25 18:19:14 [http-nio-8081-exec-2] [txId=0614c604-3354-4902-b3a0-eed199bbfe91] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=0614c604-3354-4902-b3a0-eed199bbfe91
-2026-05-25 18:19:50 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2026-05-25 18:21:55 [SpringApplicationShutdownHook] [txId=] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application TRAINER-WORKLOAD-SERVICE with eureka with status DOWN
-2026-05-25 18:21:55 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1779718915730, current=DOWN, previous=UP]
-2026-05-25 18:21:55 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081: registering service...
-2026-05-25 18:21:55 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081 - registration status: 204
-2026-05-25 18:21:55 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
-2026-05-25 18:21:58 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
-2026-05-25 18:21:58 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081 - deregister  status: 200
-2026-05-25 18:21:58 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
-2026-05-25 18:27:33 [main] [txId=] INFO  c.e.w.TrainerWorkloadApplication - Starting TrainerWorkloadApplication using Java 17.0.18 with PID 7836 (/Users/mariagevorgyan/Documents/Epam_Task1_Spring/trainer-workload-service/target/classes started by mariagevorgyan in /Users/mariagevorgyan/Documents/Epam_Task1_Spring/trainer-workload-service)
-2026-05-25 18:27:33 [main] [txId=] DEBUG c.e.w.TrainerWorkloadApplication - Running with Spring Boot v3.2.0, Spring v6.1.1
-2026-05-25 18:27:33 [main] [txId=] INFO  c.e.w.TrainerWorkloadApplication - No active profile set, falling back to 1 default profile: "default"
-2026-05-25 18:27:33 [main] [txId=] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=edcc1f8f-7b7e-3326-988c-f319dee77adb
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$544/0x000000b8013627d8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.cloud.loadbalancer-org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerClientFactory' of type [org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'blockingLoadBalancerClient' of type [org.springframework.cloud.loadbalancer.blocking.client.BlockingLoadBalancerClient] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerServiceInstanceCookieTransformer' of type [org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'xForwarderHeadersTransformer' of type [org.springframework.cloud.loadbalancer.blocking.XForwardedHeadersTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerRequestFactory' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerRequestFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2026-05-25 18:27:33 [main] [txId=] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-05-25 18:27:33 [main] [txId=] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-05-25 18:27:33 [main] [txId=] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-05-25 18:27:33 [main] [txId=] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2026-05-25 18:27:33 [main] [txId=] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2026-05-25 18:27:33 [main] [txId=] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 370 ms
-2026-05-25 18:27:33 [main] [txId=] DEBUG c.e.w.l.TransactionLoggingFilter - Filter 'transactionLoggingFilter' configured for use
-2026-05-25 18:27:33 [main] [txId=] DEBUG c.e.workload.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 1b4265fa-accb-4338-a6a7-2d43baa9d4ed
+Using generated security password: a3a66d88-4d9b-4b8f-b5db-4435d39f3abc
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2026-05-25 18:27:33 [main] [txId=] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
-2026-05-25 18:27:33 [main] [txId=] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7f5ce33e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@638afcaa, org.springframework.security.web.context.SecurityContextHolderFilter@1e120628, org.springframework.security.web.header.HeaderWriterFilter@641ed324, org.springframework.web.filter.CorsFilter@58601e7a, org.springframework.security.web.authentication.logout.LogoutFilter@25e8e59, com.epam.workload.security.JwtAuthFilter@553d2579, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1de5cc88, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@23e2c1ca, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62735b13, org.springframework.security.web.session.SessionManagementFilter@482a58c7, org.springframework.security.web.access.ExceptionTranslationFilter@288728e, org.springframework.security.web.access.intercept.AuthorizationFilter@635ff2a5]
-2026-05-25 18:27:33 [main] [txId=] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
-2026-05-25 18:27:33 [main] [txId=] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2026-05-25 18:27:33 [main] [txId=] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
-2026-05-25 18:27:33 [main] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
-2026-05-25 18:27:33 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2026-05-25 18:27:34 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2026-05-25 18:27:34 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
-2026-05-25 18:27:34 [main] [txId=] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
-2026-05-25 18:27:34 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1779719254069 with initial instances count: 1
-2026-05-25 18:27:34 [main] [txId=] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application TRAINER-WORKLOAD-SERVICE with eureka with status UP
-2026-05-25 18:27:34 [main] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1779719254071, current=UP, previous=STARTING]
-2026-05-25 18:27:34 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081: registering service...
-2026-05-25 18:27:34 [main] [txId=] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2026-05-25 18:27:34 [main] [txId=] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path ''
-2026-05-25 18:27:34 [main] [txId=] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
-2026-05-25 18:27:34 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081 - registration status: 204
-2026-05-25 18:27:34 [main] [txId=] INFO  c.e.w.TrainerWorkloadApplication - Started TrainerWorkloadApplication in 0.979 seconds (process running for 1.08)
-2026-05-25 18:27:52 [http-nio-8081-exec-1] [txId=] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-05-25 18:27:52 [http-nio-8081-exec-1] [txId=] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-05-25 18:27:52 [http-nio-8081-exec-1] [txId=] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-05-25 18:27:52 [http-nio-8081-exec-1] [txId=] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/actuator/info' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2026-05-25 18:27:52 [http-nio-8081-exec-1] [txId=] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/actuator/info' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
-2026-05-25 18:27:52 [http-nio-8081-exec-1] [txId=9a26490a-5af5-4efd-b979-920c15f6d601] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/actuator/info method=GET transactionId=9a26490a-5af5-4efd-b979-920c15f6d601
-2026-05-25 18:27:52 [http-nio-8081-exec-1] [txId=9a26490a-5af5-4efd-b979-920c15f6d601] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/actuator/info status=200 transactionId=9a26490a-5af5-4efd-b979-920c15f6d601
-2026-05-25 18:28:45 [http-nio-8081-exec-3] [txId=be52cae3-7112-4a6b-875c-9cec44f0eb01] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=be52cae3-7112-4a6b-875c-9cec44f0eb01
-2026-05-25 18:28:45 [http-nio-8081-exec-3] [txId=be52cae3-7112-4a6b-875c-9cec44f0eb01] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:28:45 [http-nio-8081-exec-3] [txId=be52cae3-7112-4a6b-875c-9cec44f0eb01] WARN  c.e.w.c.TrainerWorkloadController - No summary found for trainer 'jane.smith'
-2026-05-25 18:28:45 [http-nio-8081-exec-3] [txId=be52cae3-7112-4a6b-875c-9cec44f0eb01] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=404 transactionId=be52cae3-7112-4a6b-875c-9cec44f0eb01
-2026-05-25 18:28:54 [http-nio-8081-exec-6] [txId=c39fb14a-012a-410a-b588-61bc934a3c32] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=c39fb14a-012a-410a-b588-61bc934a3c32
-2026-05-25 18:28:54 [http-nio-8081-exec-6] [txId=c39fb14a-012a-410a-b588-61bc934a3c32] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:28:54 [http-nio-8081-exec-6] [txId=c39fb14a-012a-410a-b588-61bc934a3c32] WARN  c.e.w.c.TrainerWorkloadController - No summary found for trainer 'jane.smith'
-2026-05-25 18:28:54 [http-nio-8081-exec-6] [txId=c39fb14a-012a-410a-b588-61bc934a3c32] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=404 transactionId=c39fb14a-012a-410a-b588-61bc934a3c32
-2026-05-25 18:29:01 [http-nio-8081-exec-7] [txId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6
-2026-05-25 18:29:01 [http-nio-8081-exec-7] [txId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'jane.smith', action=ADD
-2026-05-25 18:29:01 [http-nio-8081-exec-7] [txId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'jane.smith' in 2025/3
-2026-05-25 18:29:01 [http-nio-8081-exec-7] [txId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'jane.smith', transactionId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6
-2026-05-25 18:29:01 [http-nio-8081-exec-7] [txId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=b85f0cbe-d696-4c41-bc02-6bd07fb9a0e6
-2026-05-25 18:29:06 [http-nio-8081-exec-8] [txId=43352d5b-5d22-4a53-8bed-24cba49ec5c1] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith method=GET transactionId=43352d5b-5d22-4a53-8bed-24cba49ec5c1
-2026-05-25 18:29:06 [http-nio-8081-exec-8] [txId=43352d5b-5d22-4a53-8bed-24cba49ec5c1] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'jane.smith'
-2026-05-25 18:29:06 [http-nio-8081-exec-8] [txId=43352d5b-5d22-4a53-8bed-24cba49ec5c1] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'jane.smith', transactionId=43352d5b-5d22-4a53-8bed-24cba49ec5c1
-2026-05-25 18:29:06 [http-nio-8081-exec-8] [txId=43352d5b-5d22-4a53-8bed-24cba49ec5c1] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/jane.smith status=200 transactionId=43352d5b-5d22-4a53-8bed-24cba49ec5c1
-2026-05-25 18:29:17 [http-nio-8081-exec-9] [txId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9
-2026-05-25 18:29:17 [http-nio-8081-exec-9] [txId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'jane.smith', action=DELETE
-2026-05-25 18:29:17 [http-nio-8081-exec-9] [txId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9] INFO  c.e.w.service.TrainerWorkloadService - Removed 60 minutes for trainer 'jane.smith' in 2025/3
-2026-05-25 18:29:17 [http-nio-8081-exec-9] [txId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'jane.smith', transactionId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9
-2026-05-25 18:29:17 [http-nio-8081-exec-9] [txId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=f94fab4d-3e42-408b-b2fd-6ec41a39c8b9
-2026-05-25 18:30:14 [SpringApplicationShutdownHook] [txId=] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application TRAINER-WORKLOAD-SERVICE with eureka with status DOWN
-2026-05-25 18:30:14 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1779719414494, current=DOWN, previous=UP]
-2026-05-25 18:30:14 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081: registering service...
-2026-05-25 18:30:14 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081 - registration status: 204
-2026-05-25 18:30:14 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
-2026-05-25 18:30:17 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
-2026-05-25 18:30:17 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.18.151:trainer-workload-service:8081 - deregister  status: 200
-2026-05-25 18:30:17 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+2026-06-03 05:39:29 [main] [txId=] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@14f03098, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@494e502c, org.springframework.security.web.context.SecurityContextHolderFilter@76ec6ae0, org.springframework.security.web.header.HeaderWriterFilter@10d28ee2, org.springframework.web.filter.CorsFilter@1d904637, org.springframework.security.web.csrf.CsrfFilter@51680b0e, org.springframework.security.web.authentication.logout.LogoutFilter@1618b4fa, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@42ef0b7c, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7773d139, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@6815e19c, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@49e3bd37, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3baed0a9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6fb03f5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7df468f6, org.springframework.security.web.access.ExceptionTranslationFilter@7740d2c, org.springframework.security.web.access.intercept.AuthorizationFilter@438cb294]
+2026-06-03 05:39:29 [main] [txId=] DEBUG c.e.w.l.TransactionLoggingFilter - Filter 'transactionLoggingFilter' configured for use
+2026-06-03 05:39:29 [main] [txId=] DEBUG c.e.workload.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-06-03 05:39:29 [main] [txId=] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-06-03 05:39:29 [main] [txId=] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-06-03 05:39:29 [main] [txId=] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - Started TrainerWorkloadControllerTest in 0.944 seconds (process running for 2.701)
+2026-06-03 05:39:29 [main] [txId=] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/trainer-workload' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-06-03 05:39:29 [main] [txId=bff5335b-52fe-4d5d-8bc3-1cd82a776cb9] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=bff5335b-52fe-4d5d-8bc3-1cd82a776cb9
+2026-06-03 05:39:29 [main] [txId=bff5335b-52fe-4d5d-8bc3-1cd82a776cb9] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'john.doe', action=ADD
+2026-06-03 05:39:29 [main] [txId=bff5335b-52fe-4d5d-8bc3-1cd82a776cb9] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'john.doe', transactionId=bff5335b-52fe-4d5d-8bc3-1cd82a776cb9
+2026-06-03 05:39:29 [main] [txId=bff5335b-52fe-4d5d-8bc3-1cd82a776cb9] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=bff5335b-52fe-4d5d-8bc3-1cd82a776cb9
+2026-06-03 05:39:29 [main] [txId=b014d8b9-e292-4496-848f-a2b05313389f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/unknown method=GET transactionId=b014d8b9-e292-4496-848f-a2b05313389f
+2026-06-03 05:39:29 [main] [txId=b014d8b9-e292-4496-848f-a2b05313389f] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'unknown'
+2026-06-03 05:39:29 [main] [txId=b014d8b9-e292-4496-848f-a2b05313389f] WARN  c.e.w.c.TrainerWorkloadController - No summary found for trainer 'unknown'
+2026-06-03 05:39:29 [main] [txId=b014d8b9-e292-4496-848f-a2b05313389f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/unknown status=404 transactionId=b014d8b9-e292-4496-848f-a2b05313389f
+2026-06-03 05:39:29 [main] [txId=02478d6b-583e-4c0c-ad47-8dfbbb59fbc0] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/john.doe method=GET transactionId=02478d6b-583e-4c0c-ad47-8dfbbb59fbc0
+2026-06-03 05:39:29 [main] [txId=02478d6b-583e-4c0c-ad47-8dfbbb59fbc0] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'john.doe'
+2026-06-03 05:39:29 [main] [txId=02478d6b-583e-4c0c-ad47-8dfbbb59fbc0] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'john.doe', transactionId=02478d6b-583e-4c0c-ad47-8dfbbb59fbc0
+2026-06-03 05:39:29 [main] [txId=02478d6b-583e-4c0c-ad47-8dfbbb59fbc0] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/john.doe status=200 transactionId=02478d6b-583e-4c0c-ad47-8dfbbb59fbc0
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 90 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 90 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Removed 30 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=null, action=ADD, transactionId=null
+2026-06-03 05:39:29 [main] [txId=] ERROR c.e.w.m.WorkloadMessageListener - [DLQ] Dead letter received on 'DLQ.trainer.workload.queue': messageId=msg-001, type=text
+2026-06-03 05:39:29 [main] [txId=] ERROR c.e.w.m.WorkloadMessageListener - [DLQ] Failed to read dead letter message properties
+jakarta.jms.JMSException: fail
+	at com.epam.workload.messaging.WorkloadMessageListener.onDeadLetterMessage(WorkloadMessageListener.java:47)
+	at com.epam.workload.messaging.WorkloadMessageListenerTest.onDeadLetterMessage_jmsExceptionHandled(WorkloadMessageListenerTest.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Workload processed successfully for trainer 'john.doe'
+2026-06-03 05:39:29 [main] [txId=tx-123] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=tx-123
+2026-06-03 05:39:29 [main] [txId=tx-123] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Workload processed successfully for trainer 'john.doe'
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=   , action=ADD, transactionId=null
+2026-06-03 05:39:29 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=null, transactionId=null
+2026-06-03 05:39:29 [main] [txId=2ece2359-9182-486c-8c28-a7662812cc3c] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=2ece2359-9182-486c-8c28-a7662812cc3c
+2026-06-03 05:39:29 [main] [txId=2ece2359-9182-486c-8c28-a7662812cc3c] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=2ece2359-9182-486c-8c28-a7662812cc3c
+2026-06-03 05:39:29 [main] [txId=41b3c03a-9ab9-4e36-9761-d11f7195145f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=41b3c03a-9ab9-4e36-9761-d11f7195145f
+2026-06-03 05:39:29 [main] [txId=41b3c03a-9ab9-4e36-9761-d11f7195145f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=41b3c03a-9ab9-4e36-9761-d11f7195145f
+2026-06-03 05:39:29 [main] [txId=tx-abc-123] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=tx-abc-123
+2026-06-03 05:39:29 [main] [txId=tx-abc-123] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=tx-abc-123
+2026-06-03 05:39:40 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - Starting TrainerWorkloadControllerTest using Java 17.0.18 with PID 69585 (started by mariagevorgyan in /Users/mariagevorgyan/Documents/Epam_Task1_Spring/trainer-workload-service)
+2026-06-03 05:39:40 [main] [txId=] DEBUG c.e.w.c.TrainerWorkloadControllerTest - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-06-03 05:39:40 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-06-03 05:39:41 [main] [txId=] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 34ef4605-244f-414c-8cc2-73ac8fa1b45e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-03 05:39:41 [main] [txId=] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@12025b72, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@288c16a5, org.springframework.security.web.context.SecurityContextHolderFilter@7a1bcfb1, org.springframework.security.web.header.HeaderWriterFilter@29fccabd, org.springframework.web.filter.CorsFilter@dc46916, org.springframework.security.web.csrf.CsrfFilter@3d705231, org.springframework.security.web.authentication.logout.LogoutFilter@1f0b2ffb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@60a4f677, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@5dcc1495, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5b152082, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@94af25, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@74d41fcf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@46050be4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b4c2959, org.springframework.security.web.access.ExceptionTranslationFilter@7c654cfc, org.springframework.security.web.access.intercept.AuthorizationFilter@2f59f157]
+2026-06-03 05:39:41 [main] [txId=] DEBUG c.e.w.l.TransactionLoggingFilter - Filter 'transactionLoggingFilter' configured for use
+2026-06-03 05:39:41 [main] [txId=] DEBUG c.e.workload.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-06-03 05:39:41 [main] [txId=] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-06-03 05:39:41 [main] [txId=] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-06-03 05:39:41 [main] [txId=] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - Started TrainerWorkloadControllerTest in 0.97 seconds (process running for 2.7)
+2026-06-03 05:39:41 [main] [txId=] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/trainer-workload' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-06-03 05:39:41 [main] [txId=046544d5-1bdb-4b3a-893e-4f41121e0ce5] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=046544d5-1bdb-4b3a-893e-4f41121e0ce5
+2026-06-03 05:39:41 [main] [txId=046544d5-1bdb-4b3a-893e-4f41121e0ce5] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'john.doe', action=ADD
+2026-06-03 05:39:41 [main] [txId=046544d5-1bdb-4b3a-893e-4f41121e0ce5] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'john.doe', transactionId=046544d5-1bdb-4b3a-893e-4f41121e0ce5
+2026-06-03 05:39:41 [main] [txId=046544d5-1bdb-4b3a-893e-4f41121e0ce5] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=046544d5-1bdb-4b3a-893e-4f41121e0ce5
+2026-06-03 05:39:41 [main] [txId=b7a7e27d-07a1-440b-ac9e-269ab47e6e8f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/unknown method=GET transactionId=b7a7e27d-07a1-440b-ac9e-269ab47e6e8f
+2026-06-03 05:39:41 [main] [txId=b7a7e27d-07a1-440b-ac9e-269ab47e6e8f] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'unknown'
+2026-06-03 05:39:41 [main] [txId=b7a7e27d-07a1-440b-ac9e-269ab47e6e8f] WARN  c.e.w.c.TrainerWorkloadController - No summary found for trainer 'unknown'
+2026-06-03 05:39:41 [main] [txId=b7a7e27d-07a1-440b-ac9e-269ab47e6e8f] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/unknown status=404 transactionId=b7a7e27d-07a1-440b-ac9e-269ab47e6e8f
+2026-06-03 05:39:41 [main] [txId=9279ac09-8723-4500-988a-5f7afc454ef0] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/john.doe method=GET transactionId=9279ac09-8723-4500-988a-5f7afc454ef0
+2026-06-03 05:39:41 [main] [txId=9279ac09-8723-4500-988a-5f7afc454ef0] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'john.doe'
+2026-06-03 05:39:41 [main] [txId=9279ac09-8723-4500-988a-5f7afc454ef0] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'john.doe', transactionId=9279ac09-8723-4500-988a-5f7afc454ef0
+2026-06-03 05:39:41 [main] [txId=9279ac09-8723-4500-988a-5f7afc454ef0] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/john.doe status=200 transactionId=9279ac09-8723-4500-988a-5f7afc454ef0
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 90 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 90 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Removed 30 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=null, action=ADD, transactionId=null
+2026-06-03 05:39:41 [main] [txId=] ERROR c.e.w.m.WorkloadMessageListener - [DLQ] Dead letter received on 'DLQ.trainer.workload.queue': messageId=msg-001, type=text
+2026-06-03 05:39:41 [main] [txId=] ERROR c.e.w.m.WorkloadMessageListener - [DLQ] Failed to read dead letter message properties
+jakarta.jms.JMSException: fail
+	at com.epam.workload.messaging.WorkloadMessageListener.onDeadLetterMessage(WorkloadMessageListener.java:47)
+	at com.epam.workload.messaging.WorkloadMessageListenerTest.onDeadLetterMessage_jmsExceptionHandled(WorkloadMessageListenerTest.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Workload processed successfully for trainer 'john.doe'
+2026-06-03 05:39:41 [main] [txId=tx-123] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=tx-123
+2026-06-03 05:39:41 [main] [txId=tx-123] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Workload processed successfully for trainer 'john.doe'
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=   , action=ADD, transactionId=null
+2026-06-03 05:39:41 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=null, transactionId=null
+2026-06-03 05:39:41 [main] [txId=3efff969-ed9e-468d-ada2-887c44998ae5] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=3efff969-ed9e-468d-ada2-887c44998ae5
+2026-06-03 05:39:41 [main] [txId=3efff969-ed9e-468d-ada2-887c44998ae5] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=3efff969-ed9e-468d-ada2-887c44998ae5
+2026-06-03 05:39:41 [main] [txId=41ff6560-0432-486d-a632-e0ef0de5d65c] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=41ff6560-0432-486d-a632-e0ef0de5d65c
+2026-06-03 05:39:41 [main] [txId=41ff6560-0432-486d-a632-e0ef0de5d65c] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=41ff6560-0432-486d-a632-e0ef0de5d65c
+2026-06-03 05:39:41 [main] [txId=tx-abc-123] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=tx-abc-123
+2026-06-03 05:39:41 [main] [txId=tx-abc-123] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=tx-abc-123
+2026-06-03 05:43:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:48:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:53:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 05:58:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:03:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:08:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:13:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:18:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:23:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:28:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:33:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:38:06 [AsyncResolver-bootstrap-executor-0] [txId=] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2026-06-03 06:40:48 [SpringApplicationShutdownHook] [txId=] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application TRAINER-WORKLOAD-SERVICE with eureka with status DOWN
+2026-06-03 06:40:48 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1780454448280, current=DOWN, previous=UP]
+2026-06-03 06:40:48 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081: registering service...
+2026-06-03 06:40:48 [DiscoveryClient-InstanceInfoReplicator-0] [txId=] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081 - registration status: 204
+2026-06-03 06:40:49 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+2026-06-03 06:40:52 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
+2026-06-03 06:40:52 [SpringApplicationShutdownHook] [txId=] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8761/eureka/} exception=I/O error on DELETE request for "http://localhost:8761/eureka/apps/TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8761/eureka/apps/TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:905)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:885)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:781)
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:663)
+	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.cancel(RestTemplateEurekaHttpClient.java:87)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:91)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:916)
+	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:892)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195)
+	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389)
+	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1200)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1193)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1125)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1086)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1037)
+	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:684)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:554)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.lambda$connectSocket$0(PlainConnectionSocketFactory.java:85)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:84)
+	at org.apache.hc.client5.http.socket.ConnectionSocketFactory.connectSocket(ConnectionSocketFactory.java:113)
+	at org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:181)
+	at org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:447)
+	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:162)
+	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:172)
+	at org.apache.hc.client5.http.impl.classic.ConnectExec.execute(ConnectExec.java:142)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.ProtocolExec.execute(ProtocolExec.java:192)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec.execute(HttpRequestRetryExec.java:96)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.ContentCompressionExec.execute(ContentCompressionExec.java:152)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.RedirectExec.execute(RedirectExec.java:115)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.InternalHttpClient.doExecute(InternalHttpClient.java:170)
+	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:87)
+	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:55)
+	at org.apache.hc.client5.http.classic.HttpClient.executeOpen(HttpClient.java:183)
+	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:95)
+	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:70)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
+	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:101)
+	at org.springframework.cloud.netflix.eureka.http.RestTemplateTransportClientFactory.lambda$restTemplate$0(RestTemplateTransportClientFactory.java:143)
+	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:87)
+	at org.springframework.http.client.InterceptingClientHttpRequest.executeInternal(InterceptingClientHttpRequest.java:71)
+	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:879)
+	... 39 more
+
+2026-06-03 06:40:52 [SpringApplicationShutdownHook] [txId=] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8761/eureka/apps/TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+2026-06-03 06:40:52 [SpringApplicationShutdownHook] [txId=] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8761/eureka/}, exception=I/O error on DELETE request for "http://localhost:8761/eureka/apps/TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8761/eureka/apps/TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:905)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:885)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:781)
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:663)
+	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.cancel(RestTemplateEurekaHttpClient.java:87)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:121)
+	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:80)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:916)
+	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:892)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195)
+	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389)
+	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1200)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1193)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1125)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1086)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1037)
+	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:684)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:554)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.lambda$connectSocket$0(PlainConnectionSocketFactory.java:85)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:84)
+	at org.apache.hc.client5.http.socket.ConnectionSocketFactory.connectSocket(ConnectionSocketFactory.java:113)
+	at org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:181)
+	at org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:447)
+	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:162)
+	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:172)
+	at org.apache.hc.client5.http.impl.classic.ConnectExec.execute(ConnectExec.java:142)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.ProtocolExec.execute(ProtocolExec.java:192)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec.execute(HttpRequestRetryExec.java:96)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.ContentCompressionExec.execute(ContentCompressionExec.java:152)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.RedirectExec.execute(RedirectExec.java:115)
+	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
+	at org.apache.hc.client5.http.impl.classic.InternalHttpClient.doExecute(InternalHttpClient.java:170)
+	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:87)
+	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:55)
+	at org.apache.hc.client5.http.classic.HttpClient.executeOpen(HttpClient.java:183)
+	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:95)
+	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:70)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
+	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:101)
+	at org.springframework.cloud.netflix.eureka.http.RestTemplateTransportClientFactory.lambda$restTemplate$0(RestTemplateTransportClientFactory.java:143)
+	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:87)
+	at org.springframework.http.client.InterceptingClientHttpRequest.executeInternal(InterceptingClientHttpRequest.java:71)
+	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:879)
+	... 40 more
+
+2026-06-03 06:40:52 [SpringApplicationShutdownHook] [txId=] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8761/eureka/apps/TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
+2026-06-03 06:40:52 [SpringApplicationShutdownHook] [txId=] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_TRAINER-WORKLOAD-SERVICE/192.168.15.146:trainer-workload-service:8081 - de-registration failedCannot execute request on any known server
+com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
+	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
+	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
+	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
+	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:916)
+	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:892)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195)
+	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389)
+	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136)
+	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1200)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1193)
+	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1125)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1086)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1037)
+	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2026-06-03 06:40:52 [SpringApplicationShutdownHook] [txId=] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+2026-06-03 07:22:57 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - Starting TrainerWorkloadControllerTest using Java 17.0.18 with PID 85213 (started by mariagevorgyan in /Users/mariagevorgyan/Documents/Epam_Task1_Spring/trainer-workload-service)
+2026-06-03 07:22:57 [main] [txId=] DEBUG c.e.w.c.TrainerWorkloadControllerTest - Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-06-03 07:22:57 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - No active profile set, falling back to 1 default profile: "default"
+2026-06-03 07:22:58 [main] [txId=] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: c075d27d-f8d5-4555-a443-c769e6c12b44
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-03 07:22:58 [main] [txId=] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4c2370b5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@67bf0d91, org.springframework.security.web.context.SecurityContextHolderFilter@626db270, org.springframework.security.web.header.HeaderWriterFilter@35ee7dc8, org.springframework.web.filter.CorsFilter@56e2f315, org.springframework.security.web.csrf.CsrfFilter@3565ee15, org.springframework.security.web.authentication.logout.LogoutFilter@a99f50e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@78682201, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@525dd5af, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7e9079cf, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6edbf6ed, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a92652b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@49c15ad2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@29e10870, org.springframework.security.web.access.ExceptionTranslationFilter@74a89061, org.springframework.security.web.access.intercept.AuthorizationFilter@7a9ad451]
+2026-06-03 07:22:58 [main] [txId=] DEBUG c.e.w.l.TransactionLoggingFilter - Filter 'transactionLoggingFilter' configured for use
+2026-06-03 07:22:58 [main] [txId=] DEBUG c.e.workload.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-06-03 07:22:58 [main] [txId=] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-06-03 07:22:58 [main] [txId=] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-06-03 07:22:58 [main] [txId=] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.c.TrainerWorkloadControllerTest - Started TrainerWorkloadControllerTest in 1.005 seconds (process running for 2.775)
+2026-06-03 07:22:58 [main] [txId=] WARN  o.s.w.s.h.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/api/trainer-workload' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-06-03 07:22:58 [main] [txId=81cafe74-37c0-497f-9fec-143f93cb013e] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload method=POST transactionId=81cafe74-37c0-497f-9fec-143f93cb013e
+2026-06-03 07:22:58 [main] [txId=81cafe74-37c0-497f-9fec-143f93cb013e] INFO  c.e.w.c.TrainerWorkloadController - Updating workload for trainer 'john.doe', action=ADD
+2026-06-03 07:22:58 [main] [txId=81cafe74-37c0-497f-9fec-143f93cb013e] INFO  c.e.w.c.TrainerWorkloadController - Workload updated successfully for trainer 'john.doe', transactionId=81cafe74-37c0-497f-9fec-143f93cb013e
+2026-06-03 07:22:58 [main] [txId=81cafe74-37c0-497f-9fec-143f93cb013e] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload status=200 transactionId=81cafe74-37c0-497f-9fec-143f93cb013e
+2026-06-03 07:22:58 [main] [txId=b474febc-2e91-4d62-aa5e-eea9c9ef3f86] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/unknown method=GET transactionId=b474febc-2e91-4d62-aa5e-eea9c9ef3f86
+2026-06-03 07:22:58 [main] [txId=b474febc-2e91-4d62-aa5e-eea9c9ef3f86] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'unknown'
+2026-06-03 07:22:58 [main] [txId=b474febc-2e91-4d62-aa5e-eea9c9ef3f86] WARN  c.e.w.c.TrainerWorkloadController - No summary found for trainer 'unknown'
+2026-06-03 07:22:58 [main] [txId=b474febc-2e91-4d62-aa5e-eea9c9ef3f86] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/unknown status=404 transactionId=b474febc-2e91-4d62-aa5e-eea9c9ef3f86
+2026-06-03 07:22:58 [main] [txId=bd5fd2d0-7f58-4382-9225-5b7efa7617df] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/john.doe method=GET transactionId=bd5fd2d0-7f58-4382-9225-5b7efa7617df
+2026-06-03 07:22:58 [main] [txId=bd5fd2d0-7f58-4382-9225-5b7efa7617df] INFO  c.e.w.c.TrainerWorkloadController - Fetching workload summary for trainer 'john.doe'
+2026-06-03 07:22:58 [main] [txId=bd5fd2d0-7f58-4382-9225-5b7efa7617df] INFO  c.e.w.c.TrainerWorkloadController - Summary retrieved for trainer 'john.doe', transactionId=bd5fd2d0-7f58-4382-9225-5b7efa7617df
+2026-06-03 07:22:58 [main] [txId=bd5fd2d0-7f58-4382-9225-5b7efa7617df] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint=/api/trainer-workload/john.doe status=200 transactionId=bd5fd2d0-7f58-4382-9225-5b7efa7617df
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 60 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 90 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Added 90 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.service.TrainerWorkloadService - Removed 30 minutes for trainer 'john.doe' in 2024/3
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=null, action=ADD, transactionId=null
+2026-06-03 07:22:58 [main] [txId=] ERROR c.e.w.m.WorkloadMessageListener - [DLQ] Dead letter received on 'DLQ.trainer.workload.queue': messageId=msg-001, type=text
+2026-06-03 07:22:58 [main] [txId=] ERROR c.e.w.m.WorkloadMessageListener - [DLQ] Failed to read dead letter message properties
+jakarta.jms.JMSException: fail
+	at com.epam.workload.messaging.WorkloadMessageListener.onDeadLetterMessage(WorkloadMessageListener.java:47)
+	at com.epam.workload.messaging.WorkloadMessageListenerTest.onDeadLetterMessage_jmsExceptionHandled(WorkloadMessageListenerTest.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Workload processed successfully for trainer 'john.doe'
+2026-06-03 07:22:58 [main] [txId=tx-123] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=tx-123
+2026-06-03 07:22:58 [main] [txId=tx-123] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Workload processed successfully for trainer 'john.doe'
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=ADD, transactionId=null
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=   , action=ADD, transactionId=null
+2026-06-03 07:22:58 [main] [txId=] INFO  c.e.w.m.WorkloadMessageListener - [JMS] Received workload message: trainer=john.doe, action=null, transactionId=null
+2026-06-03 07:22:58 [main] [txId=b300028a-9887-4f7c-8c15-956082e168da] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=b300028a-9887-4f7c-8c15-956082e168da
+2026-06-03 07:22:58 [main] [txId=b300028a-9887-4f7c-8c15-956082e168da] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=b300028a-9887-4f7c-8c15-956082e168da
+2026-06-03 07:22:58 [main] [txId=ffd93226-9b02-41a2-8188-a6d4c5181e40] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=ffd93226-9b02-41a2-8188-a6d4c5181e40
+2026-06-03 07:22:58 [main] [txId=ffd93226-9b02-41a2-8188-a6d4c5181e40] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=ffd93226-9b02-41a2-8188-a6d4c5181e40
+2026-06-03 07:22:58 [main] [txId=tx-abc-123] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= method= transactionId=tx-abc-123
+2026-06-03 07:22:58 [main] [txId=tx-abc-123] INFO  c.e.w.l.TransactionLoggingFilter - [TRANSACTION] endpoint= status=200 transactionId=tx-abc-123
