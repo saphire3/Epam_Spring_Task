@@ -1,0 +1,26 @@
+# Build artifacts (Docker multi-stage handles its own build)
+**/target/
+**/*.jar
+**/*.war
+
+# IDE and OS files
+.idea/
+*.iml
+.DS_Store
+**/.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Logs
+**/logs/
+**/*.log
+
+# Test data / local config
+data/
+storage.json
+postman/
+
+# Docker files themselves (avoid confusion)
+docker-compose*.yml

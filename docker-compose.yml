@@ -1,0 +1,95 @@
+version: '3.8'
+
+networks:
+  microservices-net:
+    driver: bridge
+
+services:
+
+  # ── Message Broker ──────────────────────────────────────────
+  activemq:
+    image: rmohr/activemq:5.15.9
+    container_name: activemq
+    ports:
+      - "61616:61616"   # JMS / OpenWire
+      - "8161:8161"     # Web console  (admin/admin)
+    networks:
+      - microservices-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=localhost,service=Health/CurrentStatus"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  # ── Service Discovery ────────────────────────────────────────
+  eureka-server:
+    build:
+      context: .
+      dockerfile: eureka-server/Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      EUREKA_INSTANCE_HOSTNAME: "eureka-server"
+    networks:
+      - microservices-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/actuator/health | grep -q UP"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  # ── Main Microservice (gym-crm) ──────────────────────────────
+  gym-crm:
+    build:
+      context: .
+      dockerfile: gym-crm/Dockerfile
+    container_name: gym-crm
+    ports:
+      - "8080:8080"
+    environment:
+      # Enable integrations (override Dockerfile defaults)
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_ACTIVEMQ_BROKER_URL: "tcp://activemq:61616"
+      SPRING_ACTIVEMQ_USER: "admin"
+      SPRING_ACTIVEMQ_PASSWORD: "admin"
+    depends_on:
+      activemq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - microservices-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q UP"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # ── Report Microservice (trainer-workload-service) ───────────
+  trainer-workload-service:
+    build:
+      context: .
+      dockerfile: trainer-workload-service/Dockerfile
+    container_name: trainer-workload-service
+    ports:
+      - "8081:8081"
+    environment:
+      # Enable integrations (override Dockerfile defaults)
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      SPRING_ACTIVEMQ_BROKER_URL: "tcp://activemq:61616"
+      SPRING_ACTIVEMQ_USER: "admin"
+      SPRING_ACTIVEMQ_PASSWORD: "admin"
+    depends_on:
+      activemq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - microservices-net
